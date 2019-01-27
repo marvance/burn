@@ -1,13 +1,17 @@
 import React from 'react';
+import Projects from './Project';
 
 
 
 class App extends React.Component {
   render() {
     return (
-      <div>Write One Million Words</div>
+      <div className='container'>
+        <Projects />
+      </div>
     )
   }
 }
 
 export default App
+
