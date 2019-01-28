@@ -1,0 +1,14 @@
+li {
+  list-style-type: none;
+}
+
+.projects {
+  display: flex;
+  justify-content: center;
+}
+
+.projects li {
+  margin: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}

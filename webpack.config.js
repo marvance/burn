@@ -1,8 +1,8 @@
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: ['./app/index.js'],
+  entry: ['babel-polyfill', './src/client/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index_bundle.js',
@@ -10,17 +10,26 @@ module.exports = {
   },
   module: {
     rules: [
-        { test: /\.(js)$/, use: 'babel-loader' },
-          { test: /\.css$/, use: [ 'style-loader', 'css-loader' ]}
+        { 
+          test: /\.(js)$/, 
+          exclude: /node_modules/,
+          use: 'babel-loader' 
+        },
+        { test: /\.css$/, use: [ 'style-loader', 'css-loader' ]}
     ]
   },
   mode: 'development',
   devServer : {
-    historyApiFallback: true
+    historyApiFallback: true,
+    port: 3000,
+    open: true,
+    proxy: {
+      "/api": "http://localhost:8080"
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'app/index.html'
+      template: 'src/client/index.html'
     })
   ]
 }

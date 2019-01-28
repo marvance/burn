@@ -3,7 +3,7 @@ import Projects from './Project';
 
 
 
-class App extends React.Component {
+class ReactApp extends React.Component {
   render() {
     return (
       <div className='container'>
@@ -13,5 +13,5 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default ReactApp
 

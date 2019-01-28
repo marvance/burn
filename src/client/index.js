@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import './index.css';
-import App from './components/App';
+import ReactApp from './components/ReactApp';
 
 
 
 
 ReactDOM.render(
-  <App />,
+  <ReactApp />,
   document.getElementById('app')
 )
