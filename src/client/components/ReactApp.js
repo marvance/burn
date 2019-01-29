@@ -1,5 +1,6 @@
 import React from 'react';
 import Projects from './Project';
+import CountInput from './Count';
 
 
 
@@ -8,6 +9,7 @@ class ReactApp extends React.Component {
     return (
       <div className='container'>
         <Projects />
+        <CountInput />
       </div>
     )
   }

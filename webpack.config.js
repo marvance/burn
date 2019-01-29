@@ -21,11 +21,12 @@ module.exports = {
   mode: 'development',
   devServer : {
     historyApiFallback: true,
-    port: 3000,
     open: true,
     proxy: {
       "/api": "http://localhost:8080"
-    }
+    },
+    contentBase: path.resolve(__dirname, "../src"),
+    watchContentBase: true
   },
   plugins: [
     new HtmlWebpackPlugin({
