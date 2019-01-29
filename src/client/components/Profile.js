@@ -1,70 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import ProfilePart from './profile/ProfileParts';
+import ProfileForm from './profile/ProfileForm';
 
 
-class Users extends React.Component {
-  render(){
-    var friends = this.props.list.filter(function(user){
-      return user.friend === true;
-    });
-
-    var nonFriends = this.props.list.filter(function(user){
-      return user.friend !== true;
-    });
-
-    return (
-      <div>
-        <h1>Friends</h1>
-        <ul>
-          {friends.map(function(user){
-            return (
-              <li key={user.name}>
-                {user.name}
-              </li>
-            )
-          })}
-
-
-
-        </ul>
-      </div>
-    )
-  }
-}
-
-Users.propTypes = {
-  list: PropTypes.array.isRequired,
+var USER_PROPS = {
+  name: 'Jenn Vance',
+  genre: 'nonfiction',
+  img: 'https://via.placeholder.com/100'
 }
 
 class Profile extends React.Component {
-  render(){
-    console.log("Props: ", this.props)
+    render() {
     return (
       <div>
-        <img
-          src={this.props.user.img}
-          alt='Profile Pic'
-          style={{width: 100, height: 100}}
-        />
-        <h1>Name: {this.props.user.name}</h1>
-        <h3>Genre: {this.props.user.genre}</h3>
-        <Users list={[
-            {name: 'Henry Miller', friend: true},
-            {name: 'F Scott Fitzgerald', friend: false},
-            {name: 'Anais Nin', friend: true},
-            {name: 'Earnest Hemingway', friend: false},
-            {name: 'Virginia Woolf', friend: true},
-            {name: 'Jack Kerouac', friend: true},
-          ]}/>
+        <ProfilePart user={USER_PROPS}/>
+        <ProfileForm />
       </div>
     )
   }
-}
-
-Profile.propTypes = {
-  img: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired
 }
 
 export default Profile
