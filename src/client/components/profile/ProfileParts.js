@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ProfileForm from './ProfileForm';
 
 
 class Users extends React.Component {
@@ -37,8 +38,33 @@ Users.propTypes = {
 }
 
 class ProfilePart extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      contents: {
+        name: '',
+        genre: '',
+        bio: ''        
+      }
+    }
+  }
+
+  handleChange = e => {
+    const {name, value} = e.target;
+    this.setState(prevState => ({
+      contents: { ...prevState.contents, [name]: value }
+    }));
+  }
+
+  handleSubmit = e => {
+    e.preventDefault();
+    this.setState(prevState => ({
+      contents: {name: '', genre: '', bio: ''}
+    }))
+    alert('A name was submitted: ' + this.state.contents.name + ' writes ' + this.state.contents.genre + '. They are ' + this.state.contents.bio);
+  }
+
   render(){
-    console.log("Props: ", this.props)
     return (
       <div>
         <img
@@ -46,8 +72,8 @@ class ProfilePart extends React.Component {
           alt='Profile Pic'
           style={{width: 100, height: 100}}
         />
-        <h1>Name: {this.props.user.name}</h1>
-        <h3>Genre: {this.props.user.genre}</h3>
+        <h1>Name: {this.state.contents.name}</h1>
+        <h3>Genre: {this.state.contents.genre}</h3>
         <Users list={[
             {name: 'Henry Miller', friend: true},
             {name: 'F Scott Fitzgerald', friend: false},
@@ -56,6 +82,11 @@ class ProfilePart extends React.Component {
             {name: 'Virginia Woolf', friend: true},
             {name: 'Jack Kerouac', friend: true},
           ]}/>
+          <ProfileForm 
+            handleChange={this.handleChange}
+            contents={this.state.contents}
+            handleSubmit={this.handleSubmit}
+          />
       </div>
     )
   }

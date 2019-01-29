@@ -14,7 +14,7 @@ class Profile extends React.Component {
     return (
       <div>
         <ProfilePart user={USER_PROPS}/>
-        <ProfileForm />
+        
       </div>
     )
   }
