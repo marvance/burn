@@ -3,39 +3,7 @@ import PropTypes from 'prop-types';
 import ProfileForm from './ProfileForm';
 
 
-class Users extends React.Component {
-  render(){
-    var friends = this.props.list.filter(function(user){
-      return user.friend === true;
-    });
 
-    var nonFriends = this.props.list.filter(function(user){
-      return user.friend !== true;
-    });
-
-    return (
-      <div>
-        <h1>Friends</h1>
-        <ul>
-          {friends.map(function(user){
-            return (
-              <li key={user.name}>
-                {user.name}
-              </li>
-            )
-          })}
-
-
-
-        </ul>
-      </div>
-    )
-  }
-}
-
-Users.propTypes = {
-  list: PropTypes.array.isRequired,
-}
 
 class ProfileRender extends React.Component {
   constructor(props) {
@@ -85,14 +53,7 @@ class ProfileRender extends React.Component {
         <h1>Name: {this.state.displayContents.name}</h1>
         <h3>Genre: {this.state.displayContents.genre}</h3>
         <h3>Bio: {this.state.displayContents.bio}</h3>
-        <Users list={[
-            {name: 'Henry Miller', friend: true},
-            {name: 'F Scott Fitzgerald', friend: false},
-            {name: 'Anais Nin', friend: true},
-            {name: 'Earnest Hemingway', friend: false},
-            {name: 'Virginia Woolf', friend: true},
-            {name: 'Jack Kerouac', friend: true},
-          ]}/>
+
           <ProfileForm 
             handleChange={this.handleChange}
             contents={this.state.contents}
