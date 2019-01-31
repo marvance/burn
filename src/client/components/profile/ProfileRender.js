@@ -54,11 +54,11 @@ class ProfileRender extends React.Component {
         <h3>Genre: {this.state.displayContents.genre}</h3>
         <h3>Bio: {this.state.displayContents.bio}</h3>
 
-          <ProfileForm 
-            handleChange={this.handleChange}
-            contents={this.state.contents}
-            handleSubmit={this.handleSubmit}
-          />
+        <ProfileForm 
+          handleChange={this.handleChange}
+          contents={this.state.contents}
+          handleSubmit={this.handleSubmit}
+        />
       </div>
     )
   }

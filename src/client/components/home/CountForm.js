@@ -7,9 +7,17 @@ export default ({handleChange, handleSubmit, count}) => {
     <form>
       <label>
         Enter Count: 
-        <input name='count' type='number' value={count} onChange={handleChange} />
+        <input name='words' type='number' value={count.words} onChange={handleChange} />
       </label>
-      
+      <label>
+        Date: 
+        <input name='date' type='date' value={count.date} onChange={handleChange} />
+      </label>
+      <label>
+        Project: 
+        <input name='project' type='text' value={count.project} onChange={handleChange} />
+      </label>         
+
       <input type='submit' value='Submit' onClick={handleSubmit}/>
     </form>
   )

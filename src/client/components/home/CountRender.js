@@ -7,25 +7,35 @@ class CountRender extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: '',
-      displayCount: 0
+      count: {
+        words: '',
+        date: '',
+        project: ''
+      },
+      displayCount: 0,
+      counts: []
     }
     this.addCount = this.addCount.bind(this);
   }
   handleChange = e => { 
-    const currentCount = e.target.value;
-    console.log(currentCount)
+    const {name, value} = e.target;
     this.setState(prevState => ({
-      count: currentCount
+      count: { ...prevState.count, [name]: value }
+       
     }))
   }
   handleSubmit = e => {
     e.preventDefault();
     this.setState(prevState => ({
-      count: '',
+      counts: [...prevState.counts, prevState.count],
+      count: {
+        words: '',
+        date: '',
+        project: ''
+      },
       //dont know best place to put addCount method
       //but it isn't here; move later
-      displayCount: this.addCount(prevState.count)
+      displayCount: this.addCount(prevState.count.words)
     }))
   }
   addCount(newCount) {
@@ -36,6 +46,7 @@ class CountRender extends React.Component {
     }))
   }
   render() {
+    console.log(this.state.counts)
     return (
       <div>
         <CountForm 
@@ -43,8 +54,19 @@ class CountRender extends React.Component {
           count={this.state.count}
           handleSubmit={this.handleSubmit}
         />
-        <h2>Count: {this.state.count}</h2>
+        <h2>Count: {this.state.count.words}</h2>
         <h2>Total: {this.state.displayCount}</h2>
+        <ul>
+          {this.state.counts.map(function(ct){
+            return (
+              <li key={ct.date}>
+                <h2>{ct.date}</h2>
+                <h3>{ct.project}</h3>
+                <h3>{ct.words}</h3>
+              </li>
+            )
+          })}
+       </ul>
 
       </div>
     )
