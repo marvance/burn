@@ -14,13 +14,7 @@ class CountRender extends React.Component {
       },
       displayCount: 0,
       counts: [],
-      whichProject: '',
-      chooseFromProjects: [],
-      stageProjects: [
-        {'name': 'Memoir', 'id': 0},
-        {'name': 'Fiction', 'id': 1},
-        {'name': 'Poetry', 'id': 2},
-      ]
+      chooseFromProjects: []
     }
     this.addCount = this.addCount.bind(this);
   }
@@ -28,7 +22,6 @@ class CountRender extends React.Component {
   handleSelect = e => {
     console.log(event.target)
     this.setState({
-      whichProject: event.target.value,
       count: {
         project: event.target.value
       }
@@ -50,6 +43,7 @@ class CountRender extends React.Component {
         date: '',
         project: ''
       },
+      chooseFromProjects: [...prevState.chooseFromProjects, prevState.count.project],
       //dont know best place to put addCount method
       //but it isn't here; move later
       displayCount: this.addCount(prevState.count.words)
@@ -64,10 +58,10 @@ class CountRender extends React.Component {
   }
   render() {
     
-    let optionTemplate = this.state.stageProjects.map(item => (
-      <option value={item.name}>{item.name}</option>
+    let optionTemplate = this.state.chooseFromProjects.map(item => (
+      <option value={item}>{item}</option>
     ));
-
+    console.log(this.state.chooseFromProjects)
     return (
       <div>
         <CountForm 
