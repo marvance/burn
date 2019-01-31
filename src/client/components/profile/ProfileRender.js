@@ -37,7 +37,7 @@ Users.propTypes = {
   list: PropTypes.array.isRequired,
 }
 
-class ProfilePart extends React.Component {
+class ProfileRender extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -58,17 +58,20 @@ class ProfilePart extends React.Component {
     const {name, value} = e.target;
     this.setState(prevState => ({
       contents: { ...prevState.contents, [name]: value }
-      displayContents: { ...prevState.displayContents, [name]: value }
+      
     }));
   }
 
   handleSubmit = e => {
     e.preventDefault();
+    const {name, value} = e.target;
     this.setState(prevState => ({
-      contents: {name: '', genre: '', bio: ''}
+      contents: {name: '', genre: '', bio: ''},
+      displayContents: { ...prevState.contents, [name]: value }
 
     }))
-    alert('A name was submitted: ' + this.state.contents.name + ' writes ' + this.state.contents.genre + '. They are ' + this.state.contents.bio);
+
+    //alert('A name was submitted: ' + this.state.contents.name + ' writes ' + this.state.contents.genre + '. They are ' + this.state.contents.bio);
   }
 
   render(){
@@ -81,6 +84,7 @@ class ProfilePart extends React.Component {
         />
         <h1>Name: {this.state.displayContents.name}</h1>
         <h3>Genre: {this.state.displayContents.genre}</h3>
+        <h3>Bio: {this.state.displayContents.bio}</h3>
         <Users list={[
             {name: 'Henry Miller', friend: true},
             {name: 'F Scott Fitzgerald', friend: false},
@@ -94,20 +98,16 @@ class ProfilePart extends React.Component {
             contents={this.state.contents}
             handleSubmit={this.handleSubmit}
           />
-          <div>
-            <ul>
-
-            </ul>
-          </div>
       </div>
     )
   }
 }
 
-ProfilePart.propTypes = {
+ProfileRender.propTypes = {
   img: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired
+  genre: PropTypes.string.isRequired,
+  bio: PropTypes.string.isRequired,
 }
 
-export default ProfilePart
+export default ProfileRender

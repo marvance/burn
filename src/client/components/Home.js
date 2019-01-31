@@ -1,6 +1,6 @@
 import React from 'react';
-import CountInput from './home/CountInput';
-import CountTotal from './home/CountTotal';
+// import CountForm from './home/CountForm';
+import CountRender from './home/CountRender';
 //need to figure out how to render local images
 // var testImage = require('./../uploads/TestMaryShelley.jpg');
 
@@ -12,8 +12,7 @@ class Home extends React.Component {
     return (
       <div className='home-container'>
         <h1>BURN ONE MILLION</h1>
-        <CountInput />
-        <CountTotal countTotal={this.props.countTotal}/>
+        <CountRender countTotal={this.props.countTotal}/>
       </div>
     )
   }
