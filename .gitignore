@@ -4,4 +4,4 @@ dist
 *.log
 yarn.lock
 notes.txt
-src/client/uploads
+/src/client/uploads
