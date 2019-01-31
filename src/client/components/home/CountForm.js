@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-export default ({handleChange, handleSubmit, count}) => {
+export default ({handleChange, handleSubmit, count, whichProject, handleSelect}) => {
   return (
     <form>
       <label>
@@ -16,7 +16,9 @@ export default ({handleChange, handleSubmit, count}) => {
       <label>
         Project: 
         <input name='project' type='text' value={count.project} onChange={handleChange} />
-      </label>         
+      </label>
+
+
 
       <input type='submit' value='Submit' onClick={handleSubmit}/>
     </form>

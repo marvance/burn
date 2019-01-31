@@ -13,9 +13,26 @@ class CountRender extends React.Component {
         project: ''
       },
       displayCount: 0,
-      counts: []
+      counts: [],
+      whichProject: '',
+      chooseFromProjects: [],
+      stageProjects: [
+        {'name': 'Memoir', 'id': 0},
+        {'name': 'Fiction', 'id': 1},
+        {'name': 'Poetry', 'id': 2},
+      ]
     }
     this.addCount = this.addCount.bind(this);
+  }
+
+  handleSelect = e => {
+    console.log(event.target)
+    this.setState({
+      whichProject: event.target.value,
+      count: {
+        project: event.target.value
+      }
+    })    
   }
   handleChange = e => { 
     const {name, value} = e.target;
@@ -46,14 +63,28 @@ class CountRender extends React.Component {
     }))
   }
   render() {
-    console.log(this.state.counts)
+    
+    let optionTemplate = this.state.stageProjects.map(item => (
+      <option value={item.name}>{item.name}</option>
+    ));
+
     return (
       <div>
         <CountForm 
           handleChange={this.handleChange}
           count={this.state.count}
           handleSubmit={this.handleSubmit}
+    
         />
+
+        <label>
+          Choose Project:
+          <select value={this.state.value} onChange={this.handleSelect}>
+            {optionTemplate}
+          </select>
+        </label>
+
+
         <h2>Count: {this.state.count.words}</h2>
         <h2>Total: {this.state.displayCount}</h2>
         <ul>
