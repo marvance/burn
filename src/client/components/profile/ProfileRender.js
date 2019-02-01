@@ -3,11 +3,6 @@ import PropTypes from 'prop-types';
 import ProfileForm from './ProfileForm';
 import axios from 'axios';
 
-var fixedUrl = axios.create({
-  baseUrl: 'localhost:8081',
-  proxy: false
-})
-
 
 class ProfileRender extends React.Component {
   constructor(props) {
@@ -24,47 +19,68 @@ class ProfileRender extends React.Component {
         genre: '',
         bio: '',
         photo: '' 
-      }
-    }
+      },
+      data: null
+    };
     this.fileInput = React.createRef()
+    this.testFile = this.testFile.bind(this);
   }
 
-  uploadFile = () => {
-    const fd = new FormData();
-    fd.append('photo', this.state.contents.photo, this.state.contents.photo.name)
-    axios.post('/createprofile', fd)
-      .then(response => {
-        console.log(response);
-      })
+  testFile(){
+    this.callCreateProfile()
+      .then(res => this.setState({data: res.express}))
+      .catch(err => console.log(err));
   }
 
-  hitTest = () => {
-    // axios.get('http://10.0.0.13:8081/test')
-    fixedUrl.get('/test')
-      .then(response => {
-        console.log(response);
-      })
-  }
+  callCreateProfile = async () => {
 
-  handleFile = e => {
-    console.log(e.target.files)
-    const upload_file = this.fileInput;
-    console.log(upload_file)
-    console.log(this.fileInput.current)
+    this.state.contents.photo = this.fileInput.current.files[0]
     console.log(this.state.contents)
-    this.uploadFile();
+    const fd = new FormData();
+    fd.append('photo', this.state.contents.photo)
+    console.log(fd)
+
+    const response = await fetch('/createprofile', {
+      method: 'POST',
+      body: fd
+      // headers: {
+        // 'Content-Type': 'application/x-www-form-urlencoded', // <-- Specifying the Content-Type
+        // 'Accept': 'application/json, */*',
+        // 'Content-Type': 'application/json',
+        // 'Content-Type': 'multipart/form-data',
+        // 'cache-control': 'no-cache'
+      // }
+
+    });
+    const body = await response.json();
+    console.log("BODY: ", body)
+
+    if (response.status !== 200) {
+      throw Error(body.message)
+    }
+    return body
   }
 
   handleChange = e => {
     const {name, value} = e.target;
-    this.hitTest()
-    
+   
     this.setState(prevState => ({
       contents: { ...prevState.contents, [name]: value },
       //added this for file testing, may not need later
       //displayContents: { ...prevState.contents, [name]: value }
       
     }));
+    if(e.target.type === 'file') {
+      this.setState(prevState => ({
+        contents : {
+          photo: this.fileInput.current.files[0]
+        }
+      }))
+      console.log("CONTENTS ON CHANGE: ", this.state.contents)
+
+      this.testFile();
+    }
+
 
   }
 
@@ -83,11 +99,9 @@ class ProfileRender extends React.Component {
         this.fileInput.current.files[0].name
       }`
     );
-    //alert('A name was submitted: ' + this.state.contents.name + ' writes ' + this.state.contents.genre + '. They are ' + this.state.contents.bio);
   }
 
   render(){
-    console.log(this.fileInput.current)
     console.log(this.state.contents)
     console.log(this.state.displayContents)
     return (
@@ -108,6 +122,7 @@ class ProfileRender extends React.Component {
           handleFile={this.handleFile}
           fileInput={this.fileInput}
         />
+        <h1>Pic: {this.data}</h1>
       </div>
     )
   }

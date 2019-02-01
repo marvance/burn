@@ -4,6 +4,7 @@ import Home from './Home';
 import Stats from './Stats';
 import Friends from './Friends';
 import Profile from './Profile';
+import TestServer from './TestServer';
 
 //importing didn't work but setting var did
 // import ReactRouter from 'react-router-dom';
@@ -27,6 +28,7 @@ class App extends React.Component {
                   <Route exact path='/profile' component={Profile} />
                   <Route path='/stats' component={Stats} />
                   <Route path='/friends' component={Friends} />
+                  <Route path='/testserver' component={TestServer} />
                   <Route render={() => <p>Not Found</p>} />
               </Switch>
         

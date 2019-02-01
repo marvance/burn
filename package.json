@@ -1,6 +1,7 @@
 {
   "name": "the-app",
   "version": "1.0.0",
+  "private": true,
   "description": "Write a lot, then burn it",
   "main": "index.js",
   "babel": {
@@ -19,6 +20,7 @@
     "server": "nodemon src/server/server.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
+  "proxy": "http://localhost:5000/",
   "dependencies": {
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",

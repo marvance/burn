@@ -16,6 +16,9 @@ function Nav(){
       <li>
         <NavLink activeClassName='active' to='/friends'>Friends</NavLink>
       </li>
+      <li>
+        <NavLink activeClassName='active' to='/testserver'>Test Server</NavLink>
+      </li>
     </ul>
   )
 }
