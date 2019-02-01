@@ -5,7 +5,7 @@ import ProfileRender from './profile/ProfileRender';
 var USER_PROPS = {
   name: 'Jenn Vance',
   genre: 'nonfiction',
-  img: 'https://via.placeholder.com/100',
+  photo: 'https://via.placeholder.com/100',
   bio: 'JD of Technology'
 }
 
