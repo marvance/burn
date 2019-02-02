@@ -19,7 +19,7 @@ export default ({handleChange, handleSubmit, contents, fileInput, handleFile}) =
       </label>
       <label>
         Upload Photo: 
-        <input accept='image/*' ref={fileInput} name='photo' type='file' defaultValue={contents.photo} onChange={handleFile} />
+        <input accept='image/*' ref={fileInput} name='photo' type='file' defaultValue={contents.photo.name || ''} onChange={handleFile} />
       </label>
       
       <input type='submit' value='Submit' onClick={handleSubmit}/>

@@ -39,7 +39,7 @@ app.post('/createprofile', upload.single('photo'), function(req, res){
   console.log("FILE: ", testFil)
   console.log("PHOTO: ", req.file.originalname)
 
-  res.send({express: 'Success!'})
+  res.send({express: req.file})
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

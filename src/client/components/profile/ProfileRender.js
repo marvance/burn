@@ -13,26 +13,37 @@ class ProfileRender extends React.Component {
         name: '',
         genre: '',
         bio: '',
-        photo: ''      
+        photo: {
+          name: ''
+        }   
       },
       displayContents: {
         name: '',
         genre: '',
         bio: '',
-        photo: '' 
+        photo: {
+          name: ''
+        }
       },
       data: null,
       hardCodedImage: testImage
     };
     this.fileInput = React.createRef()
     this.testFile = this.testFile.bind(this);
-    this.callCreateProfile = this.callCreateProfile.bind(this);
+    // this.callCreateProfile = this.callCreateProfile.bind(this);
   }
 
   testFile(){
     this.callCreateProfile()
-      .then(res => this.setState({data: res.express}))
+      .then(res => this.setState({
+        data: res.express.filename,
+        contents: {
+          photo: res.express
+        }
+       
+      }))
       .catch(err => console.log(err));
+
   }
 
   callCreateProfile = async () => {
@@ -46,13 +57,6 @@ class ProfileRender extends React.Component {
     const response = await fetch('/createprofile', {
       method: 'POST',
       body: fd
-      // headers: {
-        // 'Content-Type': 'application/x-www-form-urlencoded', // <-- Specifying the Content-Type
-        // 'Accept': 'application/json, */*',
-        // 'Content-Type': 'application/json',
-        // 'Content-Type': 'multipart/form-data',
-        // 'cache-control': 'no-cache'
-      // }
 
     });
     const body = await response.json();
@@ -65,6 +69,7 @@ class ProfileRender extends React.Component {
   }
 
   handleChange = e => {
+    console.log(this.fileInput.current.files[0])
     const {name, value} = e.target;
    
     this.setState(prevState => ({
@@ -74,11 +79,11 @@ class ProfileRender extends React.Component {
       
     }));
     if(e.target.type === 'file') {
-      this.setState(prevState => ({
-        contents : {
-          photo: this.fileInput.current.files[0]
-        }
-      }))
+      // this.setState(prevState => ({
+      //   contents : {
+      //     photo: this.fileInput.current.files[0]
+      //   }
+      // }))
       console.log("CONTENTS ON CHANGE: ", this.state.contents)
 
       this.testFile();
@@ -92,7 +97,7 @@ class ProfileRender extends React.Component {
     const {name, value} = e.target;
 
     this.setState(prevState => ({
-      contents: {name: '', genre: '', bio: '', photo: ''},
+      contents: {name: '', genre: '', bio: '', photo: {name: ''}},
       displayContents: { ...prevState.contents, [name]: value }
 
     }))
@@ -105,6 +110,11 @@ class ProfileRender extends React.Component {
   }
 
   render(){
+    
+    let imageUrl = '../../../../uploads/' + this.state.contents.photo.filename
+     
+    
+
     console.log(this.state.contents)
     console.log(this.state.displayContents)
     return (
@@ -113,6 +123,12 @@ class ProfileRender extends React.Component {
         <img
           src={this.state.hardCodedImage}
           alt='Hardcoded Profile Pic'
+          style={{width: 100, height: 100}}
+        />
+
+        <img
+          src={imageUrl}
+          alt='Profile Pic'
           style={{width: 100, height: 100}}
         />
 
@@ -127,6 +143,8 @@ class ProfileRender extends React.Component {
           handleFile={this.handleChange}
           fileInput={this.fileInput}
         />
+
+        <h1>Pic: {this.state.data}</h1>
         
       </div>
     )
