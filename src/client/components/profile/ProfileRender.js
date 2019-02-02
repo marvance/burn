@@ -27,22 +27,20 @@ class ProfileRender extends React.Component {
       },
       data: null,
       hardCodedImage: testImage,
-      localUpload: []
+      localUpload: [],
+      serverUpload: {}
     };
     this.fileInput = React.createRef()
     this.testFile = this.testFile.bind(this);
-    // this.callCreateProfile = this.callCreateProfile.bind(this);
   }
 
   testFile(){
     this.callCreateProfile()
       .then(res => this.setState({
-        data: res.express.filename,
-        contents: {
-          photo: res.express
-        }
-       
-      }))
+          data: res.express.filename,
+          serverUpload: res.express
+         
+        }))
       .catch(err => console.log(err));
 
   }
@@ -82,23 +80,16 @@ class ProfileRender extends React.Component {
     if(e.target.type === 'file') {
       var imgFile = this.fileInput.current.files[0];
       var fileReader = new FileReader();
-      var imgUrl = fileReader.readAsDataURL(imgFile);
+      fileReader.readAsDataURL(imgFile);
       fileReader.onloadend = function (e) {
         this.setState({
           localUpload: [fileReader.result]
         })
       }.bind(this);
-      console.log(imgUrl)
-      // this.setState(prevState => ({
-      //   contents : {
-      //     photo: this.fileInput.current.files[0]
-      //   }
-      // }))
       console.log("CONTENTS ON CHANGE: ", this.state.contents)
 
       this.testFile();
     }
-
 
   }
 
@@ -120,11 +111,8 @@ class ProfileRender extends React.Component {
   }
 
   render(){
-    
-    let imageUrl = '../../../../uploads/' + this.state.contents.photo.filename
-     
-    
-
+   
+    console.log(this.state.serverUpload)
     console.log(this.state.contents)
     console.log(this.state.displayContents)
     return (
@@ -138,7 +126,13 @@ class ProfileRender extends React.Component {
 
         <img
           src={this.state.localUpload}
-          alt='Profile Pic'
+          alt='Local Pic'
+          style={{width: 100, height: 100}}
+        />
+
+        <img
+          src={this.state.serverUpload.filename}
+          alt='Server Pic'
           style={{width: 100, height: 100}}
         />
 
