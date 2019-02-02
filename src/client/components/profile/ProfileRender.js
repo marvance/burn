@@ -13,17 +13,13 @@ class ProfileRender extends React.Component {
         name: '',
         genre: '',
         bio: '',
-        photo: {
-          name: ''
-        }   
+        photo: ''  
       },
       displayContents: {
         name: '',
         genre: '',
         bio: '',
-        photo: {
-          name: ''
-        }
+        photo: ''
       },
       data: null,
       hardCodedImage: testImage,
@@ -98,7 +94,7 @@ class ProfileRender extends React.Component {
     const {name, value} = e.target;
 
     this.setState(prevState => ({
-      contents: {name: '', genre: '', bio: '', photo: {name: ''}},
+      contents: {name: '', genre: '', bio: '', photo: ''},
       displayContents: { ...prevState.contents, [name]: value }
 
     }))
