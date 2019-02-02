@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import ProfilePart from './ProfileParts';
 
-export default ({handleChange, handleSubmit, contents, fileInput}) => {
+export default ({handleChange, handleSubmit, contents, fileInput, handleFile}) => {
   return (
     <form id='profileForm' encType='multipart/form-data'>
       <label>
@@ -19,7 +19,7 @@ export default ({handleChange, handleSubmit, contents, fileInput}) => {
       </label>
       <label>
         Upload Photo: 
-        <input accept='image/*' ref={fileInput} name='photo' type='file' defaultValue={contents.photo} onChange={handleChange} />
+        <input accept='image/*' ref={fileInput} name='photo' type='file' defaultValue={contents.photo} onChange={handleFile} />
       </label>
       
       <input type='submit' value='Submit' onClick={handleSubmit}/>

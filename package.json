@@ -15,9 +15,9 @@
   },
   "scripts": {
     "build": "webpack --mode production",
-    "start": "npm run build && node src/server/server.js",
+    "start": "npm run build && node server.js",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
-    "server": "nodemon src/server/server.js",
+    "server": "nodemon server.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "proxy": "http://localhost:5000/",
@@ -31,7 +31,8 @@
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1",
+    "url-loader": "^1.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

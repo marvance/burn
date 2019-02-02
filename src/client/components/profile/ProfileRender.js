@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ProfileForm from './ProfileForm';
 import axios from 'axios';
+var testImage = require('../../../../uploads/TestMaryShelley.jpg');
 
 
 class ProfileRender extends React.Component {
@@ -12,7 +13,7 @@ class ProfileRender extends React.Component {
         name: '',
         genre: '',
         bio: '',
-        photo: ''        
+        photo: ''      
       },
       displayContents: {
         name: '',
@@ -20,10 +21,12 @@ class ProfileRender extends React.Component {
         bio: '',
         photo: '' 
       },
-      data: null
+      data: null,
+      hardCodedImage: testImage
     };
     this.fileInput = React.createRef()
     this.testFile = this.testFile.bind(this);
+    this.callCreateProfile = this.callCreateProfile.bind(this);
   }
 
   testFile(){
@@ -106,11 +109,13 @@ class ProfileRender extends React.Component {
     console.log(this.state.displayContents)
     return (
       <div>
+
         <img
-          src={this.state.displayContents.photo}
-          alt='Profile Pic'
+          src={this.state.hardCodedImage}
+          alt='Hardcoded Profile Pic'
           style={{width: 100, height: 100}}
         />
+
         <h1>Name: {this.state.displayContents.name}</h1>
         <h3>Genre: {this.state.displayContents.genre}</h3>
         <h3>Bio: {this.state.displayContents.bio}</h3>
@@ -119,10 +124,10 @@ class ProfileRender extends React.Component {
           handleChange={this.handleChange}
           contents={this.state.contents}
           handleSubmit={this.handleSubmit}
-          handleFile={this.handleFile}
+          handleFile={this.handleChange}
           fileInput={this.fileInput}
         />
-        <h1>Pic: {this.data}</h1>
+        
       </div>
     )
   }
