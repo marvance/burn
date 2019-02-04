@@ -12,11 +12,17 @@ class CountRender extends React.Component {
         date: '',
         project: ''
       },
+      receivedCount: {
+        words: '',
+        date: '',
+        project: ''
+      },
       displayCount: 0,
       counts: [],
       chooseFromProjects: []
     }
     this.addCount = this.addCount.bind(this);
+    this.sendCount = this.sendCount.bind(this);
   }
 
   handleSelect = e => {
@@ -33,6 +39,8 @@ class CountRender extends React.Component {
       count: { ...prevState.count, [name]: value }
        
     }))
+    console.log("count on change: ", this.state.count)
+    this.sendCount()
   }
   handleSubmit = e => {
     e.preventDefault();
@@ -48,7 +56,52 @@ class CountRender extends React.Component {
       //but it isn't here; move later
       displayCount: this.addCount(prevState.count.words)
     }))
+    
+
   }
+
+  // componentDidUpdate() {
+
+  // }
+
+
+  sendCount(){
+    console.log("sendCount called")
+    this.callNewCount()
+      .then(res => this.setState({
+          receivedCount: {
+            words: res.words,
+            date: res.date,
+            project: res.project 
+          }
+         
+        }))
+      .catch(err => console.log(err));
+
+  }
+  callNewCount = async () => {
+    console.log("callnewCount called")
+    const cd = new FormData();
+    cd.append("words", this.state.count.words)
+    cd.append("project", this.state.count.project)
+    console.log(cd)
+
+    const response = await fetch('/newcount', {
+      method: 'POST',
+      body: cd
+
+    });
+    const body = await response.json();
+    console.log("BODY: ", body)
+
+    if (response.status !== 200) {
+      throw Error(body.message)
+    }
+    return body
+  }
+
+
+
   addCount(newCount) {
     let total = parseInt(this.state.displayCount)
     total += parseInt(newCount)
@@ -57,6 +110,7 @@ class CountRender extends React.Component {
     }))
   }
   render() {
+    console.log(this.receivedCount)
     
     let optionTemplate = this.state.chooseFromProjects.map(item => (
       <option value={item}>{item}</option>
@@ -82,10 +136,11 @@ class CountRender extends React.Component {
 
         <h2>Count: {this.state.count.words}</h2>
         <h2>Total: {this.state.displayCount}</h2>
+        <h2>Server Count: {this.state.receivedCount.words}</h2>
         <ul>
           {this.state.counts.map(function(ct){
             return (
-              <li key={ct.date}>
+              <li key={ct}>
                 <h2>{ct.date}</h2>
                 <h3>{ct.project}</h3>
                 <h3>{ct.words}</h3>

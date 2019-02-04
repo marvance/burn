@@ -33,6 +33,11 @@ app.get('/test', (req, res) => {
   res.send({express: 'Express connected to React'})
 })
 
+app.post('/newcount', function(req, res){
+  console.log("DATA: ", req.body)
+  res.send(req.body)
+})
+
 
 
 app.post('/createprofile', upload.single('photo'), function(req, res){
