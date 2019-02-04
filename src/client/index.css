@@ -1,3 +1,10 @@
+body {
+  margin: 0 auto;
+  font-family: 'Special Elite', cursive;
+}
+
+
+
 li {
   list-style-type: none;
 }

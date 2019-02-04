@@ -1,6 +1,7 @@
 const express = require("express");
 const os = require("os");
 const path = require('path');
+var favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer({dest: './uploads/'})
@@ -8,6 +9,8 @@ const upload = multer({dest: './uploads/'})
 const port = process.env.PORT || 5000;
 
 const app = express();
+
+app.use(favicon(path.join(__dirname, 'src/client/images', 'favicon.ico')));
 
 
 
