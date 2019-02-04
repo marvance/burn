@@ -27,10 +27,10 @@ class ProfileRender extends React.Component {
       serverUpload: {}
     };
     this.fileInput = React.createRef()
-    this.testFile = this.testFile.bind(this);
+    this.sendFile = this.sendFile.bind(this);
   }
 
-  testFile(){
+  sendFile(){
     this.callCreateProfile()
       .then(res => this.setState({
           data: res.express.filename,
@@ -84,7 +84,7 @@ class ProfileRender extends React.Component {
       }.bind(this);
       console.log("CONTENTS ON CHANGE: ", this.state.contents)
 
-      this.testFile();
+      this.sendFile();
     }
 
   }
