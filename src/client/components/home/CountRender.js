@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CountForm from './CountForm';
+import axios from 'axios';
 
 
 class CountRender extends React.Component {
@@ -35,11 +36,17 @@ class CountRender extends React.Component {
   }
   handleChange = e => { 
     const {name, value} = e.target;
+    //think prevState is causing BUG
     this.setState(prevState => ({
-      count: { ...prevState.count, [name]: value }
-       
+      count: { ...prevState.count, [name]: value },
+      receivedCount: { ...prevState.receivedCount, [name]: value } 
     }))
+    // this.setState({
+    //   count: { ...prevState.count, [name]: value },
+    //   receivedCount: { ...prevState.count, [name]: value } 
+    // })
     console.log("count on change: ", this.state.count)
+    console.log("RECEIVED count on change: ", this.state.receivedCount)
     this.sendCount()
   }
   handleSubmit = e => {
@@ -68,27 +75,36 @@ class CountRender extends React.Component {
   sendCount(){
     console.log("sendCount called")
     this.callNewCount()
-      .then(res => this.setState({
-          receivedCount: {
-            words: res.words,
-            date: res.date,
-            project: res.project 
-          }
+      .then((res) => {
+        console.log(res)
+       
+        console.log(this.receivedCount)
+        console.log(this.receivedCount.words)
+        this.setState({
+          receivedCount: res
          
-        }))
+        })
+      })
+      
       .catch(err => console.log(err));
 
   }
   callNewCount = async () => {
     console.log("callnewCount called")
-    const cd = new FormData();
-    cd.append("words", this.state.count.words)
-    cd.append("project", this.state.count.project)
-    console.log(cd)
+    // const cd = new FormData();
+    // cd.append("words", this.state.count.words)
+    // cd.append("project", this.state.count.project)
+    // console.log(cd)
 
+    // const response = await fetch('http://10.0.0.13:8080/newcount', {
     const response = await fetch('/newcount', {
       method: 'POST',
-      body: cd
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(this.state.count)
+
 
     });
     const body = await response.json();
@@ -98,6 +114,23 @@ class CountRender extends React.Component {
       throw Error(body.message)
     }
     return body
+
+
+
+    // await fetch("http://127.0.0.1:8080/newcount", {
+    // method: 'POST',
+    // headers: {
+    // 'Accept': 'application/json',
+    // 'Content-Type': 'application/json',
+    // },
+    // body: JSON.stringify({
+    //   data: this.state.count
+    // }),
+    // }).then((response) => response.json())
+
+
+
+
   }
 
 
@@ -125,13 +158,7 @@ class CountRender extends React.Component {
     
         />
 
-        <label>
-          Choose Project:
-          <select value={this.state.value} onChange={this.handleSelect}>
-            <option value='' disabled>Select Project</option>
-            {optionTemplate}
-          </select>
-        </label>
+
 
 
         <h2>Count: {this.state.count.words}</h2>
@@ -140,7 +167,7 @@ class CountRender extends React.Component {
         <ul>
           {this.state.counts.map(function(ct){
             return (
-              <li key={ct}>
+              <li key={ct.date}>
                 <h2>{ct.date}</h2>
                 <h3>{ct.project}</h3>
                 <h3>{ct.words}</h3>

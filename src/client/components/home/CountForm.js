@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-export default ({handleChange, handleSubmit, count, whichProject, handleSelect}) => {
+export default ({handleChange, handleSubmit, count}) => {
   return (
     <form>
       <label>

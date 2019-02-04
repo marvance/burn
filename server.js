@@ -35,6 +35,7 @@ app.get('/test', (req, res) => {
 
 app.post('/newcount', function(req, res){
   console.log("DATA: ", req.body)
+  // res.send({express: "success!"})
   res.send(req.body)
 })
 
