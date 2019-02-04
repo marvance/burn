@@ -36,12 +36,13 @@ class CountRender extends React.Component {
   handleChange = e => { 
     const {name, value} = e.target;
     e.persist()
-    this.setState(
+    this.setState(prevState => (
         {
             count: {
+              ...prevState.count,
               [name]: value
             }
-        },
+        }),
         () => {                 
             this.sendCount();                 
         }
