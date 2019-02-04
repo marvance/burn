@@ -47,17 +47,12 @@ class CountRender extends React.Component {
             this.sendCount();                 
         }
     );  
-
   }
   handleSubmit = e => {
     e.preventDefault();
     this.setState(prevState => ({
       counts: [...prevState.counts, prevState.count],
-      count: {
-        words: '',
-        date: '',
-        project: ''
-      },
+
       chooseFromProjects: [...prevState.chooseFromProjects, prevState.count.project],
       //dont know best place to put addCount method
       //but it isn't here; move later
@@ -73,7 +68,12 @@ class CountRender extends React.Component {
      
         console.log(res)
         this.setState({
-          receivedCount: res
+          receivedCount: res,
+          count: {
+            words: '',
+            date: '',
+            project: ''
+          }
          
         })
       })
@@ -128,7 +128,13 @@ class CountRender extends React.Component {
           handleSubmit={this.handleSubmit}
     
         />
-
+        <label>
+          Choose Project:
+          <select value={this.state.value} onChange={this.handleSelect}>
+            <option value='' disabled>Select Project</option>
+            {optionTemplate}
+          </select>
+        </label>
 
 
 
