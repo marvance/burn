@@ -27,7 +27,6 @@ class CountRender extends React.Component {
   }
 
   handleSelect = e => {
-    console.log(event.target)
     this.setState({
       count: {
         project: event.target.value
@@ -36,18 +35,18 @@ class CountRender extends React.Component {
   }
   handleChange = e => { 
     const {name, value} = e.target;
-    //think prevState is causing BUG
-    this.setState(prevState => ({
-      count: { ...prevState.count, [name]: value },
-      receivedCount: { ...prevState.receivedCount, [name]: value } 
-    }))
-    // this.setState({
-    //   count: { ...prevState.count, [name]: value },
-    //   receivedCount: { ...prevState.count, [name]: value } 
-    // })
-    console.log("count on change: ", this.state.count)
-    console.log("RECEIVED count on change: ", this.state.receivedCount)
-    this.sendCount()
+    e.persist()
+    this.setState(
+        {
+            count: {
+              [name]: value
+            }
+        },
+        () => {                 
+            this.sendCount();                 
+        }
+    );  
+
   }
   handleSubmit = e => {
     e.preventDefault();
@@ -67,19 +66,11 @@ class CountRender extends React.Component {
 
   }
 
-  // componentDidUpdate() {
-
-  // }
-
-
   sendCount(){
-    console.log("sendCount called")
     this.callNewCount()
       .then((res) => {
+     
         console.log(res)
-       
-        console.log(this.receivedCount)
-        console.log(this.receivedCount.words)
         this.setState({
           receivedCount: res
          
@@ -90,13 +81,6 @@ class CountRender extends React.Component {
 
   }
   callNewCount = async () => {
-    console.log("callnewCount called")
-    // const cd = new FormData();
-    // cd.append("words", this.state.count.words)
-    // cd.append("project", this.state.count.project)
-    // console.log(cd)
-
-    // const response = await fetch('http://10.0.0.13:8080/newcount', {
     const response = await fetch('/newcount', {
       method: 'POST',
       headers: {
@@ -116,21 +100,6 @@ class CountRender extends React.Component {
     return body
 
 
-
-    // await fetch("http://127.0.0.1:8080/newcount", {
-    // method: 'POST',
-    // headers: {
-    // 'Accept': 'application/json',
-    // 'Content-Type': 'application/json',
-    // },
-    // body: JSON.stringify({
-    //   data: this.state.count
-    // }),
-    // }).then((response) => response.json())
-
-
-
-
   }
 
 
@@ -143,7 +112,8 @@ class CountRender extends React.Component {
     }))
   }
   render() {
-    console.log(this.receivedCount)
+    console.log(this.state.receivedCount)
+    console.log(this.state.count)
     
     let optionTemplate = this.state.chooseFromProjects.map(item => (
       <option value={item}>{item}</option>
