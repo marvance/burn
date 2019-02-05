@@ -37,29 +37,29 @@ class CountRender extends React.Component {
     const {name, value} = e.target;
     e.persist()
     this.setState(prevState => (
-        {
-            count: {
-              ...prevState.count,
-              [name]: value
-            }
-        }),
-        () => {                 
-            this.sendCount();                 
+      {
+        count: {
+          ...prevState.count,
+          [name]: value
         }
-    );  
+      }
+    ));  
   }
   handleSubmit = e => {
     e.preventDefault();
-    this.setState(prevState => ({
-      counts: [...prevState.counts, prevState.count],
-
-      chooseFromProjects: [...prevState.chooseFromProjects, prevState.count.project],
-      //dont know best place to put addCount method
-      //but it isn't here; move later
-      displayCount: this.addCount(prevState.count.words)
-    }))
-    
-
+    this.setState(prevState => (
+        {
+          counts: [...prevState.counts, prevState.count],
+          chooseFromProjects: [...prevState.chooseFromProjects, prevState.count.project],
+          //dont know best place to put addCount method
+          //but it isn't here; move later
+          displayCount: this.addCount(prevState.count.words)
+        }),
+        //should this be a callback of setState or handleSubmit?
+        () => {                 
+            this.sendCount();                 
+        }
+    ); 
   }
 
   sendCount(){
