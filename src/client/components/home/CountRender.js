@@ -131,7 +131,7 @@ class CountRender extends React.Component {
         <label>
           Choose Project:
           <select value={this.state.value} onChange={this.handleSelect}>
-            <option value='' disabled>Select Project</option>
+            <option value=''>Select Project</option>
             {optionTemplate}
           </select>
         </label>
