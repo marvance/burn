@@ -9,6 +9,7 @@ class Calculations extends React.Component {
 
     }
     this.getCounts = this.getCounts.bind(this);
+    this.calculateTotal = this.calculateTotal.bind(this);
   }
   componentDidMount() {
     this.getCounts()
@@ -19,19 +20,22 @@ class Calculations extends React.Component {
       .then((res) => {
      
         console.log(res)
-        var projects = res.map(item => (
+        var projectNames = res.map(item => (
           item.project
         )).filter((value, index, self) => (
           self.indexOf(value) === index
         ))
-        console.log("PROJS: ", projects)
+        console.log("PROJS: ", projectNames)
 
-        this.setState(prevState => ({  
+        this.setState({  
           counts: res,
-          projects: projects
+          projects: projectNames
          
+        }, () => {
+          this.calculateTotal(this.state.counts)
+          console.log("total: ",this.calculateTotal(this.state.counts))
         })
-      )})      
+      })      
       .catch(err => console.log(err));
   }
   callNewCount = async () => {
@@ -50,6 +54,15 @@ class Calculations extends React.Component {
   calculateTotal(countsArray){
     //for a given array (sort by proj/date/etc before calling this function)
     //calc total
+    if (countsArray.length) {
+      return countsArray.map(function(a){
+        return parseInt(a.words)
+      }).reduce(function(a,b){
+        return a+b
+      })
+    } else {
+      return null
+    }
   }
   sortByProject(project){
     //for given project, return counts only for that project
