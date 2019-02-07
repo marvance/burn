@@ -13,6 +13,7 @@ class Calculations extends React.Component {
     this.sortByProject = this.sortByProject.bind(this);
     this.sortByMonth = this.sortByMonth.bind(this);
     this.sortByYear = this.sortByYear.bind(this);
+    this.findMostProductiveDate = this.findMostProductiveDate.bind(this);
   }
   componentDidMount() {
     this.getCounts()
@@ -39,8 +40,8 @@ class Calculations extends React.Component {
           // console.log("total: ",this.calculateTotal(this.state.counts))
           // console.log("sort projs: ", this.sortByProject("yyy", this.state.counts ))
           // console.log("sort by month: ", this.sortByMonth("2019-01-4", this.state.counts))
-       
-          console.log("sort by year: ", this.sortByYear("2018", this.state.counts))
+          // console.log("sort by year: ", this.sortByYear("2018", this.state.counts))
+          console.log("productivedate: ", this.findMostProductiveDate(this.state.counts))
         })
       })      
       .catch(err => console.log(err));
@@ -114,9 +115,16 @@ class Calculations extends React.Component {
     //create new entry with word count value "0"
 
   }
-  findMostProductiveDate(monthORyearORalltime){
+  findMostProductiveDate(countsArray){
     //for given time frame, find most productive date
-
+    if (countsArray.length) {
+      return countsArray.reduce(function(a,b){
+        return (a.words > b.words) ? a : b
+      })
+    } 
+    else {
+      return null
+    }
   }
   findMostProductiveDayOfWeek(monthORyearORalltime){
     //for given time frame, find most productive day of week
