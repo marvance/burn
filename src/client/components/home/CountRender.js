@@ -13,7 +13,7 @@ class CountRender extends React.Component {
         date: '',
         project: ''
       },
-      receivedCount: {
+      serverCount: {
         words: '',
         date: '',
         project: ''
@@ -47,19 +47,7 @@ class CountRender extends React.Component {
   }
   handleSubmit = e => {
     e.preventDefault();
-    this.setState(prevState => (
-        {
-          counts: [...prevState.counts, prevState.count],
-          chooseFromProjects: [...prevState.chooseFromProjects, prevState.count.project],
-          //dont know best place to put addCount method
-          //but it isn't here; move later
-          displayCount: this.addCount(prevState.count.words)
-        }),
-        //should this be a callback of setState or handleSubmit?
-        () => {                 
-            this.sendCount();                 
-        }
-    ); 
+    this.sendCount(); 
   }
 
   sendCount(){
@@ -67,18 +55,25 @@ class CountRender extends React.Component {
       .then((res) => {
      
         console.log(res)
-        this.setState({
+        var projects = res.map(item => (
+          item.project
+        ))
+        console.log("PROJS: ", projects)
+
+        this.setState(prevState => ({
+        
           counts: res,
-          receivedCount: res[res.length-1],
-          // receivedCount: res,
+          serverCount: res[res.length-1],
           count: {
             words: '',
             date: '',
             project: ''
-          }
+          },
+          chooseFromProjects: projects,
+          displayCount: this.addCount(prevState.count.words)
          
         })
-      })
+      )})
       
       .catch(err => console.log(err));
 
@@ -115,7 +110,7 @@ class CountRender extends React.Component {
     }))
   }
   render() {
-    console.log(this.state.receivedCount)
+    console.log(this.state.serverCount)
     console.log(this.state.count)
     
     let optionTemplate = this.state.chooseFromProjects.map(item => (
@@ -142,7 +137,7 @@ class CountRender extends React.Component {
 
         <h2>Count: {this.state.count.words}</h2>
         <h2>Total: {this.state.displayCount}</h2>
-        <h2>Server Count: {this.state.receivedCount.words}</h2>
+        <h2>Server Count: {this.state.serverCount.words}</h2>
         <ul>
           {this.state.counts.map(function(ct){
             return (
