@@ -14,6 +14,7 @@ class Calculations extends React.Component {
     this.sortByMonth = this.sortByMonth.bind(this);
     this.sortByYear = this.sortByYear.bind(this);
     this.findMostProductiveDate = this.findMostProductiveDate.bind(this);
+    this.findMostProductiveDayOfWeek = this.findMostProductiveDayOfWeek.bind(this);
   }
   componentDidMount() {
     this.getCounts()
@@ -41,7 +42,9 @@ class Calculations extends React.Component {
           // console.log("sort projs: ", this.sortByProject("yyy", this.state.counts ))
           // console.log("sort by month: ", this.sortByMonth("2019-01-4", this.state.counts))
           // console.log("sort by year: ", this.sortByYear("2018", this.state.counts))
-          console.log("productivedate: ", this.findMostProductiveDate(this.state.counts))
+          // console.log("productivedate: ", this.findMostProductiveDate(this.state.counts))
+          console.log("productivedaY: ", this.findMostProductiveDayOfWeek(this.state.counts))
+          
         })
       })      
       .catch(err => console.log(err));
@@ -126,8 +129,38 @@ class Calculations extends React.Component {
       return null
     }
   }
-  findMostProductiveDayOfWeek(monthORyearORalltime){
+  findMostProductiveDayOfWeek(data){
     //for given time frame, find most productive day of week
+      //storage for counts by day of week
+      var days = [0,0,0,0,0,0,0]
+      //names of day of week
+      var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+      //for every item in array 
+      for(var i=0; i<data.length;i++){
+        //local variable to track dayofweek
+        var dayOfWeek;
+        console.log(new Date(data[i].date))
+        console.log(new Date(data[i].date).getDay())
+        //wouldn't need below conditional if new Date(data[i].date)
+        //aka entire date selector
+        //were not off by 1 day (5 hours)
+        //date selector captures 19:00:00 GMT-0500 of day before actual selected
+        //perhaps need to convert date at time of selection?
+        if(new Date(data[i].date).getDay() === 6){
+          dayOfWeek = 0
+        } else {
+          dayOfWeek = new Date(data[i].date).getDay()+1
+        }
+        //sort by day of week and keep running total for each day of week
+        days[dayOfWeek] += parseInt(data[i].words)
+      }
+      //compare totals of each day of week and find highest
+      var highestCount = days.reduce(function(a,b){
+        return Math.max(a,b)
+      })
+      var highestIndex = days.indexOf(highestCount)
+      var productiveDay = dayNames[highestIndex]
+      return productiveDay
 
   }
   calculateAverage(monthORyearORalltime){
