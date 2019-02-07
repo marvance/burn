@@ -10,6 +10,7 @@ class Calculations extends React.Component {
     }
     this.getCounts = this.getCounts.bind(this);
     this.calculateTotal = this.calculateTotal.bind(this);
+    this.sortByProject = this.sortByProject.bind(this);
   }
   componentDidMount() {
     this.getCounts()
@@ -34,6 +35,7 @@ class Calculations extends React.Component {
         }, () => {
           this.calculateTotal(this.state.counts)
           console.log("total: ",this.calculateTotal(this.state.counts))
+          console.log("sort projs: ", this.sortByProject("yyy", this.state.counts ))
         })
       })      
       .catch(err => console.log(err));
@@ -60,12 +62,21 @@ class Calculations extends React.Component {
       }).reduce(function(a,b){
         return a+b
       })
-    } else {
+    } 
+    else {
       return null
     }
   }
-  sortByProject(project){
+  sortByProject(whichProject, countsArray){
     //for given project, return counts only for that project
+    if (countsArray.length) {
+      return countsArray.filter(function(item){
+        return item.project === whichProject
+      })
+    } 
+    else {
+      return null
+    }
 
   }
   sortByMonth(month, year) {
