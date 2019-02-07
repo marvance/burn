@@ -6,7 +6,6 @@ class Stats extends React.Component {
   render() {
     return (
       <div>
-        <h3>Stats coming soon!</h3>
         <Projects />
         <Calculations />
       </div>

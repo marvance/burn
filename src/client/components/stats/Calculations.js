@@ -4,16 +4,17 @@ class Calculations extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      counts: []
+      counts: [],
+      projects: []
 
     }
-    this.sendCount = this.sendCount.bind(this);
+    this.getCounts = this.getCounts.bind(this);
   }
   componentDidMount() {
-    this.sendCount()
+    this.getCounts()
   }
 
-  sendCount(){
+  getCounts(){
     this.callNewCount()
       .then((res) => {
      
@@ -26,23 +27,16 @@ class Calculations extends React.Component {
         console.log("PROJS: ", projects)
 
         this.setState(prevState => ({  
-          counts: res
+          counts: res,
+          projects: projects
          
         })
-      )})
-      
+      )})      
       .catch(err => console.log(err));
-
   }
   callNewCount = async () => {
-    const response = await fetch('/newcount', {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-
-
+    const response = await fetch('/getcounts', {
+      method: 'GET'
     });
     const body = await response.json();
     console.log("BODY: ", body)
@@ -51,9 +45,43 @@ class Calculations extends React.Component {
       throw Error(body.message)
     }
     return body
-  }  
+  } 
+  //helper functions, could be moved elsewhere 
+  calculateTotal(countsArray){
+    //for a given array (sort by proj/date/etc before calling this function)
+    //calc total
+  }
+  sortByProject(project){
+    //for given project, return counts only for that project
+
+  }
+  sortByMonth(month, year) {
+    //for given month, return counts only for that month
+
+  }
+  sortByYear(year){
+    //for given year, return counts only for that year
+  }
+  insertZeroesForEmptyDates(){
+    //for every day since user signed up,
+    //for every date that has passed since then with no entry,
+    //create new entry with word count value "0"
+
+  }
+  findMostProductiveDate(monthORyearORalltime){
+    //for given time frame, find most productive date
+
+  }
+  findMostProductiveDayOfWeek(monthORyearORalltime){
+    //for given time frame, find most productive day of week
+
+  }
+  calculateAverage(monthORyearORalltime){
+    //for given time frame, find daily average
+  }
 
   render() {
+    console.log(this.state.projects)
     return (
       <div>
         <ul>

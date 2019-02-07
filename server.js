@@ -35,12 +35,17 @@ app.get('/test', (req, res) => {
 
 
 const allCounts = [];
-app.all('/newcount', function(req, res){
-
+app.post('/newcount', function(req, res){
   allCounts.push(req.body)
   console.log("DATA: ", req.body)
   console.log("CONTS: ", allCounts)
-  // res.send({express: "success!"})
+  res.send(allCounts)
+})
+
+
+//calling app.all() on '/newcount' sends empty object even for GET request
+//so creating get-only method for getting counts
+app.get('/getcounts', function(req,res){
   res.send(allCounts)
 })
 
