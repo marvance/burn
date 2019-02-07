@@ -35,8 +35,8 @@ app.get('/test', (req, res) => {
 
 
 const allCounts = [];
-app.post('/newcount', function(req, res){
-  
+app.all('/newcount', function(req, res){
+
   allCounts.push(req.body)
   console.log("DATA: ", req.body)
   console.log("CONTS: ", allCounts)

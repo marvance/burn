@@ -1,5 +1,6 @@
 import React from 'react';
 import Projects from './stats/Project';
+import Calculations from './stats/Calculations';
 
 class Stats extends React.Component {
   render() {
@@ -7,6 +8,7 @@ class Stats extends React.Component {
       <div>
         <h3>Stats coming soon!</h3>
         <Projects />
+        <Calculations />
       </div>
     )
   }

@@ -57,11 +57,12 @@ class CountRender extends React.Component {
         console.log(res)
         var projects = res.map(item => (
           item.project
+        )).filter((value, index, self) => (
+          self.indexOf(value) === index
         ))
         console.log("PROJS: ", projects)
 
-        this.setState(prevState => ({
-        
+        this.setState(prevState => ({  
           counts: res,
           serverCount: res[res.length-1],
           count: {
