@@ -15,6 +15,7 @@ class Calculations extends React.Component {
     this.sortByYear = this.sortByYear.bind(this);
     this.findMostProductiveDate = this.findMostProductiveDate.bind(this);
     this.findMostProductiveDayOfWeek = this.findMostProductiveDayOfWeek.bind(this);
+    this.calculateAverage = this.calculateAverage.bind(this);
   }
   componentDidMount() {
     this.getCounts()
@@ -43,7 +44,8 @@ class Calculations extends React.Component {
           // console.log("sort by month: ", this.sortByMonth("2019-01-4", this.state.counts))
           // console.log("sort by year: ", this.sortByYear("2018", this.state.counts))
           // console.log("productivedate: ", this.findMostProductiveDate(this.state.counts))
-          console.log("productivedaY: ", this.findMostProductiveDayOfWeek(this.state.counts))
+          // console.log("productivedaY: ", this.findMostProductiveDayOfWeek(this.state.counts))
+          console.log("avg: ", this.calculateAverage(this.state.counts))
           
         })
       })      
@@ -163,8 +165,17 @@ class Calculations extends React.Component {
       return productiveDay
 
   }
-  calculateAverage(monthORyearORalltime){
+  calculateAverage(countsArray){
     //for given time frame, find daily average
+    //perhaps run allTime calcs from date of first entry, rather than date of signup
+    //array will already be filtered by year, month, or none if want alltime
+    //zeroes should also already be added to given time span
+    //days in current month or year that have not yet occured should produce no value, not even 0
+    //can account for this in insertZeroes function
+    //given that the array will already be sorted,
+    //all we need to do is find number of days in countsArray
+    //and this function turns out very simple
+    return (this.calculateTotal(countsArray) / countsArray.length).toFixed(0)
   }
 
   render() {
