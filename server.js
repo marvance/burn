@@ -33,10 +33,15 @@ app.get('/test', (req, res) => {
   res.send({express: 'Express connected to React'})
 })
 
+
+const allCounts = [];
 app.post('/newcount', function(req, res){
+  
+  allCounts.push(req.body)
   console.log("DATA: ", req.body)
+  console.log("CONTS: ", allCounts)
   // res.send({express: "success!"})
-  res.send(req.body)
+  res.send(allCounts)
 })
 
 

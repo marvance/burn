@@ -68,7 +68,9 @@ class CountRender extends React.Component {
      
         console.log(res)
         this.setState({
-          receivedCount: res,
+          counts: res,
+          receivedCount: res[res.length-1],
+          // receivedCount: res,
           count: {
             words: '',
             date: '',
