@@ -12,6 +12,7 @@ class Calculations extends React.Component {
     this.calculateTotal = this.calculateTotal.bind(this);
     this.sortByProject = this.sortByProject.bind(this);
     this.sortByMonth = this.sortByMonth.bind(this);
+    this.sortByYear = this.sortByYear.bind(this);
   }
   componentDidMount() {
     this.getCounts()
@@ -37,7 +38,9 @@ class Calculations extends React.Component {
           this.calculateTotal(this.state.counts)
           // console.log("total: ",this.calculateTotal(this.state.counts))
           // console.log("sort projs: ", this.sortByProject("yyy", this.state.counts ))
-          console.log("sort by month: ", this.sortByMonth("2019-01-4", this.state.counts))
+          // console.log("sort by month: ", this.sortByMonth("2019-01-4", this.state.counts))
+       
+          console.log("sort by year: ", this.sortByYear("2018", this.state.counts))
         })
       })      
       .catch(err => console.log(err));
@@ -83,7 +86,6 @@ class Calculations extends React.Component {
   }
   sortByMonth(dateString, countsArray) {
     //for given month, return counts only for that month
-
     if (countsArray.length) {
       return countsArray.filter(function(item){
         return item.date.substring(0, 7) === dateString.substring(0, 7)
@@ -92,10 +94,19 @@ class Calculations extends React.Component {
     else {
       return null
     }
-
   }
-  sortByYear(year){
+  sortByYear(year, countsArray){
     //for given year, return counts only for that year
+    if (countsArray.length) {
+      return countsArray.filter(function(item){
+        console.log(item.date.substring(0, 4))
+        console.log(year)
+        return item.date.substring(0, 4) === year
+      })
+    } 
+    else {
+      return null
+    }
   }
   insertZeroesForEmptyDates(){
     //for every day since user signed up,
