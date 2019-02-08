@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function SelectProject (props) {
+function SelectDate (props) {
   var projects = ['Mild', 'War and Peach', 'Artemis Shrugged'];
   return (
+
+
     <ul className='projects'>
       {projects.map(function (title) {
         return (
@@ -24,31 +26,4 @@ SelectProject.propTypes = {
   onSelect: PropTypes.func.isRequired,
 };
 
-class Projects extends React.Component {
-  constructor(props) {
-    super();
-    this.state = {
-      selectedProject: 'Mild',
-    };
-
-    this.updateProject = this.updateProject.bind(this);
-  }
-  updateProject(title) {
-    this.setState(function () {
-      return {
-        selectedProject: title,
-      }
-    });
-  }
-  render() {
-    return (
-      <div>
-        <SelectProject
-          selectedProject={this.state.selectedProject}
-          onSelect={this.updateProject} />
-      </div>
-    )
-  }
-}
-
-export default Projects
+export default SelectDate
