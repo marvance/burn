@@ -1,17 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SelectProject from './SelectProject';
-const api = require('../../utils/api.js');
 
 
-class Projects extends React.Component {
+//should this be a stateless functional component instead?
+//currently not receiving props
+
+class DisplayProjects extends React.Component {
+
   constructor(props) {
-    super();
+    super(props);
     this.state = {
-      selectedProject: 'Mild',
+      selectedProject: '',
       projects: []
     };
-
+    console.log(this.props)
     this.updateProject = this.updateProject.bind(this);
   }
   updateProject(title) {
@@ -22,15 +25,23 @@ class Projects extends React.Component {
     });
   }
   render() {
+    //Projects passes projects Array to SelectProject
     return (
       <div>
         <SelectProject
           selectedProject={this.state.selectedProject}
           onSelect={this.updateProject} 
-          projectsList={this.state.projects} />
+          projectsList={this.state.projects}
+          countsArray={this.state.projects} />
       </div>
     )
   }
 }
 
-export default Projects
+//SelectProject takes projects array
+DisplayProjects.propTypes = {
+  projectsArray: PropTypes.array.isRequired,
+  countsArray: PropTypes.array.isRequired,
+};
+
+export default DisplayProjects

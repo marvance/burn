@@ -1,5 +1,4 @@
 import React from 'react';
-import Projects from './stats/Project';
 import Home from './Home';
 import Stats from './Stats';
 import Friends from './Friends';

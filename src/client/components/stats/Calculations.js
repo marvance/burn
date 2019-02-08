@@ -1,20 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Calculations extends React.Component {
+  constructor(props) {
+    super();
+    this.state = {
+      selectedProject: '',
+      projects: []
+    };
 
+    
+  }
 
 
   render() {
     console.log(this.state.projects)
     return (
       <div>
+        Projects list -remove this later-
         <ul>
-          {this.state.counts.map(function(ct){
+          {this.state.projects.map(function(proj){
             return (
-              <li key={ct.date}>
-                <h2>{ct.date}</h2>
-                <h3>{ct.project}</h3>
-                <h3>{ct.words}</h3>
+              <li key={proj}>
+                <h2>{proj}</h2>
               </li>
             )
           })}
@@ -23,6 +31,13 @@ class Calculations extends React.Component {
     )
   }
 }
+
+
+//SelectProject takes projects array
+Calculations.propTypes = {
+  selectedProject: PropTypes.string.isRequired,
+  countsList: PropTypes.array.isRequired,
+};
 
 
 export default Calculations

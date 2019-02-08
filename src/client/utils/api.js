@@ -1,63 +1,8 @@
 import axios from 'axios';
 
-// module.exports = {
-//   fetchCatFacts: function(){
-//     var encodedURI = window.encodeURI('https://cat-fact.herokuapp.com/facts/random?animal=cat&amount=1')
-  
-//     return axios.get(encodedURI)
-//       .then(function(response){
-//         return response.data;
-//       })
-//   }
-// }
-
-module.exports = {
-  //server endpoint calls to get all counts
-  getCounts: function() {
-    callNewCount()
-      .then((res) => {
-     
-        console.log(res)
-        var projectNames = res.map(item => (
-          item.project
-        )).filter((value, index, self) => (
-          self.indexOf(value) === index
-        ))
-        console.log("PROJS: ", projectNames)
-
-        this.setState({  
-          counts: res,
-          projects: projectNames
-         
-        }, () => {
-          this.calculateTotal(this.state.counts)
-          // console.log("total: ",this.calculateTotal(this.state.counts))
-          // console.log("sort projs: ", this.sortByProject("yyy", this.state.counts ))
-          // console.log("sort by month: ", this.sortByMonth("2019-01-4", this.state.counts))
-          // console.log("sort by year: ", this.sortByYear("2018", this.state.counts))
-          // console.log("productivedate: ", this.findMostProductiveDate(this.state.counts))
-          // console.log("productivedaY: ", this.findMostProductiveDayOfWeek(this.state.counts))
-          // console.log("avg: ", this.calculateAverage(this.state.counts))
-          
-        })
-      })      
-      .catch(err => console.log(err));
-  },
-  callNewCount: async () => {
-    const response = await fetch('/getcounts', {
-      method: 'GET'
-    });
-    const body = await response.json();
-    console.log("BODY: ", body)
-
-    if (response.status !== 200) {
-      throw Error(body.message)
-    }
-    return body
-  }, 
 
   //Calculations functions, could be moved elsewhere 
-  calculateTotal: function(countsArray){
+  export function calculateTotal(countsArray){
     //for a given array (sort by proj/date/etc before calling this function)
     //calc total
     if (countsArray.length) {
@@ -70,8 +15,8 @@ module.exports = {
     else {
       return null
     }
-  },
-  sortByProject: function(whichProject, countsArray){
+  }
+  function sortByProject(whichProject, countsArray){
     //for given project, return counts only for that project
     if (countsArray.length) {
       return countsArray.filter(function(item){
@@ -82,8 +27,8 @@ module.exports = {
       return null
     }
 
-  },
-  sortByMonth: function(dateString, countsArray) {
+  }
+  function sortByMonth(dateString, countsArray) {
     //for given month, return counts only for that month
     if (countsArray.length) {
       return countsArray.filter(function(item){
@@ -93,8 +38,8 @@ module.exports = {
     else {
       return null
     }
-  },
-  sortByYear: function(year, countsArray){
+  }
+  function sortByYear(year, countsArray){
     //for given year, return counts only for that year
     if (countsArray.length) {
       return countsArray.filter(function(item){
@@ -106,14 +51,14 @@ module.exports = {
     else {
       return null
     }
-  },
-  insertZeroesForEmptyDates: function(){
+  }
+  function insertZeroesForEmptyDates(){
     //for every day since user signed up,
     //for every date that has passed since then with no entry,
     //create new entry with word count value "0"
 
-  },
-  findMostProductiveDate: function(countsArray){
+  }
+  function findMostProductiveDate(countsArray){
     //for given time frame, find most productive date
     if (countsArray.length) {
       return countsArray.reduce(function(a,b){
@@ -123,8 +68,8 @@ module.exports = {
     else {
       return null
     }
-  },
-  findMostProductiveDayOfWeek: function(data){
+  }
+  function findMostProductiveDayOfWeek(data){
     //for given time frame, find most productive day of week
       //storage for counts by day of week
       var days = [0,0,0,0,0,0,0]
@@ -157,8 +102,8 @@ module.exports = {
       var productiveDay = dayNames[highestIndex]
       return productiveDay
 
-  },
-  calculateAverage: function(countsArray){
+  }
+  function calculateAverage(countsArray){
     //for given time frame, find daily average
     //perhaps run allTime calcs from date of first entry, rather than date of signup
     //array will already be filtered by year, month, or none if want alltime
@@ -171,4 +116,4 @@ module.exports = {
     return (this.calculateTotal(countsArray) / countsArray.length).toFixed(0)
   }
 
-}
+
