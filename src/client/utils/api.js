@@ -16,7 +16,7 @@ import axios from 'axios';
       return null
     }
   }
-  function sortByProject(whichProject, countsArray){
+  export function sortByProject(whichProject, countsArray){
     //for given project, return counts only for that project
     if (countsArray.length) {
       return countsArray.filter(function(item){

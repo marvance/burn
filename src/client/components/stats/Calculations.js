@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {sortByProject, calculateTotal} from '../../utils/api';
 
-
+//need to rename this ListAllCounts,
+//put calculations in yet another component?
+//or just move this return function and replace with calculations using api
 
 function Calculations(props) {
 
@@ -13,16 +16,19 @@ function Calculations(props) {
     //otherwise no unique key since there may likely be multiple of same date, proj, and num words
     return (
       <div>
-        
+        <h2>Counts for {props.selectedProject}:</h2>
         <ul>
           {props.countsList.map(function(proj){
-            return (
-              <li key={proj.project}>
-                <h2>{proj.project}</h2>
-              </li>
-            )
+            if(proj.project === props.selectedProject) {
+              return (
+                <li key={proj.words}>
+                  <h2>{proj.date}</h2>
+                  <h3>{proj.words}</h3>
+                </li>
+              )
+            }
           })}
-       </ul>
+        </ul>
       </div>
     )
 
