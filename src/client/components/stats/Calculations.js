@@ -1,36 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class Calculations extends React.Component {
-  constructor(props) {
-    super();
-    //doesn't need state, will already have both selectedProj and projects as props
-    this.state = {
-      selectedProject: '',
-      projects: []
-    };
-
-    
-  }
 
 
-  render() {
-    console.log(this.state.projects)
+function Calculations(props) {
+
+
+    //console logging props never seems to work
+    //but data still get sent through in time to return JSX??
+    console.log(props.countsList)
+    //perhaps need to give each count an id, if want to map over them.
+    //otherwise no unique key since there may likely be multiple of same date, proj, and num words
     return (
       <div>
-        Projects list -remove this later-
+        
         <ul>
-          {this.state.projects.map(function(proj){
+          {props.countsList.map(function(proj){
             return (
-              <li key={proj}>
-                <h2>{proj}</h2>
+              <li key={proj.project}>
+                <h2>{proj.project}</h2>
               </li>
             )
           })}
        </ul>
       </div>
     )
-  }
+
 }
 
 

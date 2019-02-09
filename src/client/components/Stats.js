@@ -38,7 +38,7 @@ class Stats extends React.Component {
          
         }, () => {
           console.log("should calculations go HERE??")
-          this.updateCountsProp()
+          
           // this.calculateTotal(this.state.counts)
           // console.log("total: ",this.calculateTotal(this.state.counts))
           // console.log("sort projs: ", this.sortByProject("yyy", this.state.counts ))
@@ -65,6 +65,9 @@ class Stats extends React.Component {
     return body
   } 
 
+  componentDidUpdate() {
+    
+  }
 
 
   //pass projects array to projects

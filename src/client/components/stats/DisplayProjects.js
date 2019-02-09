@@ -4,7 +4,6 @@ import Calculations from './Calculations';
 
 
 function SelectProject (props) {
-  // var projects = ['Mild', 'War and Peach', 'Artemis Shrugged'];
   const projects = props.projectsList;
 
    
@@ -78,9 +77,9 @@ class DisplayProjects extends React.Component {
 }
 
 //SelectProject takes projects array
-DisplayProjects.propTypes = {
-  projectsList: PropTypes.array.isRequired,
-  countsList: PropTypes.array.isRequired,
-};
+// DisplayProjects.propTypes = {
+//   projectsList: PropTypes.array.isRequired,
+//   countsList: PropTypes.array.isRequired,
+// };
 
 export default DisplayProjects
