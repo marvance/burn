@@ -7,42 +7,56 @@ class Graphs extends React.Component {
 
   constructor(props) {
     super(props);
+
+    
     this.state = {
       total: '',
       productiveDay: '',
-      productiveDate: ''
+      productiveDate: '',
+      countsArray: [],
+      projectSelected: ''
     };
-    this.changeState = this.changeState.bind(this);
     
   }
 
-  componentDidMount(){
-    this.changeState()
+    componentWillReceiveProps(nextProps){
+      if(nextProps.countsList !== this.props.countsList){
+        
+        let total = calculateTotal(nextProps.countsList);
+        let prodDay = findMostProductiveDayOfWeek(nextProps.countsList);
+        //prodDate isn't actually most productive date
+        
+        console.log(total, prodDay);
+        this.setState({
+          countsArray: nextProps.countsList,
+          total: total,
+          productiveDay: prodDay
+          
+        });
+      }
+      if(nextProps.selectedProject !== this.props.selectedProject){
+        this.setState({projectSelected: nextProps.selectedProject});
+      }
 
-  }
+    }
 
-  changeState(){
-    let total = calculateTotal(this.props.countsList);
-    let prodDay = findMostProductiveDayOfWeek(this.props.countsList);
-    let prodDate = findMostProductiveDate(this.props.countsList);
-    //produces (null, "Saturday", null)
-    console.log(total, prodDay, prodDate)
-    //generates memory leak error message
-    this.setState({
-      total: total.words,
-      productiveDay: prodDay,
-      productiveDate: prodDate.date
-    })
-  }
+
 
 
 
   render() {
+    let findProdDate = findMostProductiveDate(this.state.countsArray);
+    let prodDate = findProdDate.date;
+    //still not working because returns null on first page load
+    //and whole page breaks
+    //need to investigate: Lifting State Up, Redux
+    console.log(findProdDate)
+    console.log(this.state.countsArray)
     return (
       <div>
         <p>Total: {this.state.total} words</p>
         <p>Most productive day of week: {this.state.productiveDay}</p>
-        <p>Most productive date: {this.state.productiveDate}</p>
+        <p>Most productive date: </p>
         
       </div>
     )   

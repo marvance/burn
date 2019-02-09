@@ -24,8 +24,7 @@ function SelectProject (props) {
         </ul>
         <ViewCounts selectedProject={props.selectedProject}
           countsList={props.countsList} />
-        <Graphs selectedProject={props.selectedProject}
-          countsList={props.countsList}/>  
+
       </div>
 
     )
@@ -74,6 +73,8 @@ class DisplayProjects extends React.Component {
           onSelect={this.updateProject} 
           projectsList={this.props.projectsList}
           countsList={this.props.countsList} />
+        <Graphs selectedProject={this.state.selectedProject}
+          countsList={this.props.countsList} /> 
       </div>
     )
   }

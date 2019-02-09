@@ -5,6 +5,7 @@ import axios from 'axios';
   export function calculateTotal(countsArray){
     //for a given array (sort by proj/date/etc before calling this function)
     //calc total
+
     if (countsArray.length) {
       return countsArray.map(function(a){
         return parseInt(a.words)
@@ -41,6 +42,7 @@ import axios from 'axios';
   }
   function sortByYear(year, countsArray){
     //for given year, return counts only for that year
+
     if (countsArray.length) {
       return countsArray.filter(function(item){
         console.log(item.date.substring(0, 4))
@@ -59,6 +61,8 @@ import axios from 'axios';
 
   }
   export function findMostProductiveDate(countsArray){
+    console.log(countsArray)
+    console.log(countsArray.length)
     //for given time frame, find most productive date
     if (countsArray.length) {
       return countsArray.reduce(function(a,b){
@@ -72,6 +76,8 @@ import axios from 'axios';
   export function findMostProductiveDayOfWeek(data){
     //for given time frame, find most productive day of week
       //storage for counts by day of week
+      console.log(data)
+      console.log(data.length)
       var days = [0,0,0,0,0,0,0]
       //names of day of week
       var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
