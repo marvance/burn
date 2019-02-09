@@ -58,7 +58,7 @@ import axios from 'axios';
     //create new entry with word count value "0"
 
   }
-  function findMostProductiveDate(countsArray){
+  export function findMostProductiveDate(countsArray){
     //for given time frame, find most productive date
     if (countsArray.length) {
       return countsArray.reduce(function(a,b){
@@ -69,7 +69,7 @@ import axios from 'axios';
       return null
     }
   }
-  function findMostProductiveDayOfWeek(data){
+  export function findMostProductiveDayOfWeek(data){
     //for given time frame, find most productive day of week
       //storage for counts by day of week
       var days = [0,0,0,0,0,0,0]
@@ -103,7 +103,7 @@ import axios from 'axios';
       return productiveDay
 
   }
-  function calculateAverage(countsArray){
+  export function calculateAverage(countsArray){
     //for given time frame, find daily average
     //perhaps run allTime calcs from date of first entry, rather than date of signup
     //array will already be filtered by year, month, or none if want alltime

@@ -24,6 +24,8 @@ function SelectProject (props) {
         </ul>
         <ViewCounts selectedProject={props.selectedProject}
           countsList={props.countsList} />
+        <Graphs selectedProject={props.selectedProject}
+          countsList={props.countsList}/>  
       </div>
 
     )
