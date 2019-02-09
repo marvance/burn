@@ -11,7 +11,9 @@ class Stats extends React.Component {
       projects: []
 
     }
+  
     this.getCounts = this.getCounts.bind(this);
+   
   }
   //grab counts
   componentDidMount() {
@@ -36,6 +38,7 @@ class Stats extends React.Component {
          
         }, () => {
           console.log("should calculations go HERE??")
+          this.updateCountsProp()
           // this.calculateTotal(this.state.counts)
           // console.log("total: ",this.calculateTotal(this.state.counts))
           // console.log("sort projs: ", this.sortByProject("yyy", this.state.counts ))
@@ -63,14 +66,15 @@ class Stats extends React.Component {
   } 
 
 
+
   //pass projects array to projects
   render() {
     console.log(this.state.projects,this.state.counts)
     return (
       <div>
         <DisplayProjects 
-          projectsArray={this.state.projects}
-          countsArray={this.state.counts} />
+          projectsList={this.state.projects}
+          countsList={this.state.counts} />
         
       </div>
     )

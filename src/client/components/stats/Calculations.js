@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 class Calculations extends React.Component {
   constructor(props) {
     super();
+    //doesn't need state, will already have both selectedProj and projects as props
     this.state = {
       selectedProject: '',
       projects: []
