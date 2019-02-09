@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+
 module.exports = {
   entry: ['babel-polyfill', './src/client/index.js'],
   output: {
@@ -44,6 +45,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      favicon: './src/client/images/favicon.ico',
       template: 'src/client/index.html'
     })
   ]

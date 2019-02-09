@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Calculations from './Calculations';
+import Graphs from './Graphs';
+import ViewCounts from './ViewCounts';
 
 
 function SelectProject (props) {
@@ -21,7 +22,7 @@ function SelectProject (props) {
             )
           })}
         </ul>
-        <Calculations selectedProject={props.selectedProject}
+        <ViewCounts selectedProject={props.selectedProject}
           countsList={props.countsList} />
       </div>
 
