@@ -13,11 +13,20 @@ function Graphs (props) {
   let prodDate = findProdDate.date;
   //if project selected
   //run calcs for given project
-  if (props.selectedProject !== '') {
-    total = calculateTotal(sortByProject(props.selectedProject, props.countsList))
-    prodDay = findMostProductiveDayOfWeek(sortByProject(props.selectedProject, props.countsList));
-    findProdDate = findMostProductiveDate(sortByProject(props.selectedProject, props.countsList));
-    prodDate = findProdDate.date;
+  if (props.selectedProject !== undefined) {
+    console.log(props.selectedProject)
+    // total = calculateTotal(sortByProject(props.selectedProject, props.countsList))
+    // prodDay = findMostProductiveDayOfWeek(sortByProject(props.selectedProject, props.countsList));
+    // findProdDate = findMostProductiveDate(sortByProject(props.selectedProject, props.countsList));
+    // prodDate = findProdDate.date;
+  }
+
+  if(props.selectedMonth !== undefined) {
+    console.log(props.selectedMonth)
+  }
+
+  if(props.selectedYear !== undefined) {
+    console.log(props.selectedYear)
   }
 
   return (
@@ -31,8 +40,10 @@ function Graphs (props) {
 }
 
 Graphs.propTypes = {
-  selectedProject: PropTypes.string.isRequired,
   countsList: PropTypes.array.isRequired,
+  selectedProject: PropTypes.string,
+  selectedMonth: PropTypes.string,
+  selectedYear: PropTypes.string,
 };
 
 function SelectDate(props){
@@ -47,6 +58,9 @@ function SelectDate(props){
   let months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
   let monthIndexes = ["01","02","03","04","05","06","07","08","09","10","11","12"] // may not need these
   let years = ['2019', '2018', '2017'] //reverse order is conventional UI
+
+  let isCountsList = props.countsList.length > 0;
+  console.log(isCountsList)
 
   return (
     <div>
@@ -69,6 +83,14 @@ function SelectDate(props){
           ))}
         </select>
       </label>
+      {isCountsList
+        ? <Graphs selectedMonth={props.selectedMonth}
+            selectedYear={props.selectedYear}
+            countsList={props.countsList} 
+          />
+        : <p>No data yet</p> 
+      }
+
     </div>
   )
 
@@ -77,6 +99,9 @@ function SelectDate(props){
 SelectDate.propTypes = {
   onSelectMonth: PropTypes.func,
   onSelectYear: PropTypes.func,
+  selectedMonth: PropTypes.string,
+  selectedYear: PropTypes.string,
+  countsList: PropTypes.array.isRequired,
 }
 
 function SelectProject (props) {
@@ -172,6 +197,9 @@ class DisplayProjects extends React.Component {
         <SelectDate 
           onSelectMonth={this.updateMonth}
           onSelectYear={this.updateYear}
+          selectedMonth={this.state.selectedMonth}
+          selectedYear={this.state.selectedYear}
+          countsList={this.props.countsList}
         />
 
       </div>
