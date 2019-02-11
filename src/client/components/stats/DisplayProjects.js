@@ -13,6 +13,15 @@ function Graphs (props) {
     let prodDate = findProdDate.date;
     console.log(total, prodDay, prodDate)
 
+    //this does not work
+    //changing selected year gives correct all-year data
+    //but selecting project does not update data by project
+    //no matter whether you select year or project first
+    if(props.selectedProject && props.selectedYear) {
+      total = calculateTotal(sortByProject(sortByYear(props.selectedYear, props.countsList), props.countsList))
+      console.log(total)
+    }
+
     //if project selected
     //run calcs for given project
     if (props.selectedProject) {
@@ -42,6 +51,8 @@ function Graphs (props) {
       findProdDate = findMostProductiveDate(sortByYear(props.selectedYear, props.countsList));
       prodDate = findProdDate.date;
     }  
+
+
 
   return (
     <div>
