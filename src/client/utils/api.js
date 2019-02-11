@@ -29,11 +29,27 @@ import axios from 'axios';
     }
 
   }
-  export function sortByMonth(dateString, countsArray) {
-    //for given month, return counts only for that month
+
+  function sortByMonthOriginal(dateString, countsArray){
     if (countsArray.length) {
       return countsArray.filter(function(item){
         return item.date.substring(0, 7) === dateString.substring(0, 7)
+      })
+    } 
+    else {
+      return null
+    }   
+  }
+  export function sortByMonth(month, countsArray) {
+    let correctedMonth = parseInt(month) + 1
+    if(correctedMonth < 10){
+      correctedMonth.toString()
+      correctedMonth = '0' + correctedMonth
+    }
+    console.log(correctedMonth)
+    if (countsArray.length) {
+      return countsArray.filter(function(item){
+        return item.date.substring(5, 7) === correctedMonth
       })
     } 
     else {

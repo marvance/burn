@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ViewCounts from './ViewCounts';
-import {sortByYear, sortByProject, calculateTotal, calculateAverage, findMostProductiveDayOfWeek, findMostProductiveDate} from '../../utils/api';
+import {sortByMonth, sortByYear, sortByProject, calculateTotal, calculateAverage, findMostProductiveDayOfWeek, findMostProductiveDate} from '../../utils/api';
 
 
 function Graphs (props) {
@@ -26,10 +26,11 @@ function Graphs (props) {
 
     if(props.selectedMonth) {
       console.log(props.selectedMonth);
-      // total = calculateTotal(sortByProject(props.selectedProject, props.countsList))
-      // prodDay = findMostProductiveDayOfWeek(sortByProject(props.selectedProject, props.countsList));
-      // findProdDate = findMostProductiveDate(sortByProject(props.selectedProject, props.countsList));
-      // prodDate = findProdDate.date;
+      console.log(sortByMonth(props.selectedMonth, props.countsList));
+      total = calculateTotal(sortByMonth(props.selectedMonth, props.countsList));
+      prodDay = findMostProductiveDayOfWeek(sortByMonth(props.selectedMonth, props.countsList));
+      findProdDate = findMostProductiveDate(sortByMonth(props.selectedMonth, props.countsList));
+      prodDate = findProdDate.date;
     }
 
     if(props.selectedYear) {
@@ -80,8 +81,8 @@ function SelectDate(props){
         Choose Month:
         <select onChange={props.onSelectMonth}>
           <option value=''>All Months</option>
-          {months.map(item => (
-            <option value={item}>{item}</option>
+          {months.map((item, index) => (
+            <option value={index}>{item}</option>
           ))}
         </select>
       </label>
