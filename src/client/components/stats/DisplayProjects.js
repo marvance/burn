@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import Graphs from './Graphs';
 import ViewCounts from './ViewCounts';
 import {sortByProject, calculateTotal, calculateAverage, findMostProductiveDayOfWeek, findMostProductiveDate} from '../../utils/api';
 
@@ -21,17 +20,11 @@ function Graphs (props) {
     prodDate = findProdDate.date;
   }
 
-  
-
-
   return (
     <div>
       <p>Total: {total} words</p>
       <p>Most productive day of week: {prodDay}</p>
-      <p>Most productive date: {prodDate} </p>
-
-      
-      
+      <p>Most productive date: {prodDate} </p>      
     </div>
   )
 
@@ -41,6 +34,10 @@ Graphs.propTypes = {
   selectedProject: PropTypes.string.isRequired,
   countsList: PropTypes.array.isRequired,
 };
+
+function SelectDate(props) {
+
+}
 
 
 function SelectProject (props) {

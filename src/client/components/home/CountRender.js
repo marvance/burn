@@ -55,6 +55,7 @@ class CountRender extends React.Component {
       .then((res) => {
      
         console.log(res)
+        //can prob delete this, since dont use projects/choosefromprojects on this page
         var projects = res.map(item => (
           item.project
         )).filter((value, index, self) => (
