@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ViewCounts from './ViewCounts';
-import {sortByProject, calculateTotal, calculateAverage, findMostProductiveDayOfWeek, findMostProductiveDate} from '../../utils/api';
+import {sortByYear, sortByProject, calculateTotal, calculateAverage, findMostProductiveDayOfWeek, findMostProductiveDate} from '../../utils/api';
 
 
 function Graphs (props) {
@@ -16,8 +16,8 @@ function Graphs (props) {
     //if project selected
     //run calcs for given project
     if (props.selectedProject) {
-      console.log(props.selectedProject)
-      total = calculateTotal(sortByProject(props.selectedProject, props.countsList))
+      console.log(props.selectedProject);
+      total = calculateTotal(sortByProject(props.selectedProject, props.countsList));
       prodDay = findMostProductiveDayOfWeek(sortByProject(props.selectedProject, props.countsList));
       findProdDate = findMostProductiveDate(sortByProject(props.selectedProject, props.countsList));
       prodDate = findProdDate.date;
@@ -25,11 +25,21 @@ function Graphs (props) {
     }
 
     if(props.selectedMonth) {
-      console.log(props.selectedMonth)
+      console.log(props.selectedMonth);
+      // total = calculateTotal(sortByProject(props.selectedProject, props.countsList))
+      // prodDay = findMostProductiveDayOfWeek(sortByProject(props.selectedProject, props.countsList));
+      // findProdDate = findMostProductiveDate(sortByProject(props.selectedProject, props.countsList));
+      // prodDate = findProdDate.date;
     }
 
     if(props.selectedYear) {
-      console.log(props.selectedYear)
+      console.log(props.selectedYear);
+      console.log(sortByYear(props.selectedYear, props.countsList));
+      
+      total = calculateTotal(sortByYear(props.selectedYear, props.countsList));
+      prodDay = findMostProductiveDayOfWeek(sortByYear(props.selectedYear, props.countsList));
+      findProdDate = findMostProductiveDate(sortByYear(props.selectedYear, props.countsList));
+      prodDate = findProdDate.date;
     }  
 
   return (
@@ -194,6 +204,8 @@ class DisplayProjects extends React.Component {
         {isCountsList
           ? <Graphs 
               selectedProject={this.state.selectedProject}
+              selectedMonth={this.state.selectedMonth}
+              selectedYear={this.state.selectedYear}
               countsList={this.props.countsList} 
             />
           : <p>No data yet</p>

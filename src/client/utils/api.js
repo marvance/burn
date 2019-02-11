@@ -29,7 +29,7 @@ import axios from 'axios';
     }
 
   }
-  function sortByMonth(dateString, countsArray) {
+  export function sortByMonth(dateString, countsArray) {
     //for given month, return counts only for that month
     if (countsArray.length) {
       return countsArray.filter(function(item){
@@ -40,13 +40,13 @@ import axios from 'axios';
       return null
     }
   }
-  function sortByYear(year, countsArray){
+  export function sortByYear(year, countsArray){
     //for given year, return counts only for that year
 
     if (countsArray.length) {
       return countsArray.filter(function(item){
-        console.log(item.date.substring(0, 4))
-        console.log(year)
+        // console.log(item.date.substring(0, 4))
+        // console.log(year)
         return item.date.substring(0, 4) === year
       })
     } 
