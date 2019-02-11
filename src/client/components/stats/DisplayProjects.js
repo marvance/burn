@@ -6,15 +6,22 @@ import {sortByProject, calculateTotal, calculateAverage, findMostProductiveDayOf
 
 
 function Graphs (props) {
-  console.log(props)
-  let clist = props.countsList
-  console.log(clist)
+  //if no project selected
+  //run calcs on all
   let total = calculateTotal(props.countsList);
   let prodDay = findMostProductiveDayOfWeek(props.countsList);
   let findProdDate = findMostProductiveDate(props.countsList);
-  console.log(total, prodDay, findProdDate)
   let prodDate = findProdDate.date;
-  console.log(prodDate)
+  //if project selected
+  //run calcs for given project
+  if (props.selectedProject !== '') {
+    total = calculateTotal(sortByProject(props.selectedProject, props.countsList))
+    prodDay = findMostProductiveDayOfWeek(sortByProject(props.selectedProject, props.countsList));
+    findProdDate = findMostProductiveDate(sortByProject(props.selectedProject, props.countsList));
+    prodDate = findProdDate.date;
+  }
+
+  
 
 
   return (
@@ -38,7 +45,9 @@ Graphs.propTypes = {
 
 function SelectProject (props) {
   const projects = props.projectsList;
-
+  console.log(props.countsList)
+  let isCountsList = props.countsList.length > 0;
+  console.log(isCountsList)
    
     return (
       <div>
@@ -56,7 +65,10 @@ function SelectProject (props) {
         </ul>
         <ViewCounts selectedProject={props.selectedProject}
           countsList={props.countsList} />
-
+        {isCountsList
+          ? <Graphs selectedProject={props.selectedProject}
+          countsList={props.countsList} />
+          : <p>No data yet</p>}
       </div>
 
     )
@@ -97,9 +109,6 @@ class DisplayProjects extends React.Component {
 
 
   render() {
-    console.log(this.props.countsList)
-    let isCountsList = this.props.countsList.length > 0;
-    console.log(isCountsList)
 
     return (
       <div>
@@ -108,10 +117,7 @@ class DisplayProjects extends React.Component {
           onSelect={this.updateProject} 
           projectsList={this.props.projectsList}
           countsList={this.props.countsList} />
-        {isCountsList
-          ? <Graphs selectedProject={this.state.selectedProject}
-          countsList={this.props.countsList} />
-          : <p>No data yet</p>}
+
 
       </div>
     )
