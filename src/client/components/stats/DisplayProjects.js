@@ -5,29 +5,32 @@ import {sortByProject, calculateTotal, calculateAverage, findMostProductiveDayOf
 
 
 function Graphs (props) {
-  //if no project selected
+    //if no project selected
   //run calcs on all
-  let total = calculateTotal(props.countsList);
-  let prodDay = findMostProductiveDayOfWeek(props.countsList);
-  let findProdDate = findMostProductiveDate(props.countsList);
-  let prodDate = findProdDate.date;
-  //if project selected
-  //run calcs for given project
-  if (props.selectedProject !== undefined) {
-    console.log(props.selectedProject)
-    // total = calculateTotal(sortByProject(props.selectedProject, props.countsList))
-    // prodDay = findMostProductiveDayOfWeek(sortByProject(props.selectedProject, props.countsList));
-    // findProdDate = findMostProductiveDate(sortByProject(props.selectedProject, props.countsList));
-    // prodDate = findProdDate.date;
-  }
+    let total = calculateTotal(props.countsList);
+    let prodDay = findMostProductiveDayOfWeek(props.countsList);
+    let findProdDate = findMostProductiveDate(props.countsList);
+    let prodDate = findProdDate.date;
+    console.log(total, prodDay, prodDate)
 
-  if(props.selectedMonth !== undefined) {
-    console.log(props.selectedMonth)
-  }
+    //if project selected
+    //run calcs for given project
+    if (props.selectedProject) {
+      console.log(props.selectedProject)
+      total = calculateTotal(sortByProject(props.selectedProject, props.countsList))
+      prodDay = findMostProductiveDayOfWeek(sortByProject(props.selectedProject, props.countsList));
+      findProdDate = findMostProductiveDate(sortByProject(props.selectedProject, props.countsList));
+      prodDate = findProdDate.date;
 
-  if(props.selectedYear !== undefined) {
-    console.log(props.selectedYear)
-  }
+    }
+
+    if(props.selectedMonth) {
+      console.log(props.selectedMonth)
+    }
+
+    if(props.selectedYear) {
+      console.log(props.selectedYear)
+    }  
 
   return (
     <div>
@@ -39,12 +42,13 @@ function Graphs (props) {
 
 }
 
+
 Graphs.propTypes = {
   countsList: PropTypes.array.isRequired,
   selectedProject: PropTypes.string,
   selectedMonth: PropTypes.string,
   selectedYear: PropTypes.string,
-};
+}
 
 function SelectDate(props){
 //show all months in year
@@ -59,8 +63,6 @@ function SelectDate(props){
   let monthIndexes = ["01","02","03","04","05","06","07","08","09","10","11","12"] // may not need these
   let years = ['2019', '2018', '2017'] //reverse order is conventional UI
 
-  let isCountsList = props.countsList.length > 0;
-  console.log(isCountsList)
 
   return (
     <div>
@@ -83,13 +85,6 @@ function SelectDate(props){
           ))}
         </select>
       </label>
-      {isCountsList
-        ? <Graphs selectedMonth={props.selectedMonth}
-            selectedYear={props.selectedYear}
-            countsList={props.countsList} 
-          />
-        : <p>No data yet</p> 
-      }
 
     </div>
   )
@@ -106,9 +101,6 @@ SelectDate.propTypes = {
 
 function SelectProject (props) {
   const projects = props.projectsList;
-  console.log(props.countsList)
-  let isCountsList = props.countsList.length > 0;
-  console.log(isCountsList)
    
     return (
       <div>
@@ -126,10 +118,6 @@ function SelectProject (props) {
         </ul>
         <ViewCounts selectedProject={props.selectedProject}
           countsList={props.countsList} />
-        {isCountsList
-          ? <Graphs selectedProject={props.selectedProject}
-          countsList={props.countsList} />
-          : <p>No data yet</p>}
         
       </div>
 
@@ -182,6 +170,8 @@ class DisplayProjects extends React.Component {
   }
 
   render() {
+    let isCountsList = this.props.countsList.length > 0;
+    console.log(isCountsList)
     console.log(this.state.selectedProject)
     console.log(this.state.selectedMonth)
     console.log(this.state.selectedYear)
@@ -201,6 +191,13 @@ class DisplayProjects extends React.Component {
           selectedYear={this.state.selectedYear}
           countsList={this.props.countsList}
         />
+        {isCountsList
+          ? <Graphs 
+              selectedProject={this.state.selectedProject}
+              countsList={this.props.countsList} 
+            />
+          : <p>No data yet</p>
+        }
 
       </div>
     )
