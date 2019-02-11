@@ -66,7 +66,8 @@ import axios from 'axios';
     //for given time frame, find most productive date
     if (countsArray.length) {
       return countsArray.reduce(function(a,b){
-        return (a.words > b.words) ? a : b
+        console.log(a, ' : ', b)
+        return (parseInt(a.words) < parseInt(b.words)) ? b : a
       })
     } 
     else {
