@@ -35,51 +35,49 @@ Graphs.propTypes = {
   countsList: PropTypes.array.isRequired,
 };
 
-function SelectDate(){
-
+function SelectDate(props){
 //show all months in year
 
-//show all years since user signed up
-
+//show all years since user signed up ( will need to pass down user object to here eventually )
 //select month in year
 
 //run calcs on that individual month
 
 //if zero, return zero
   let months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
-  let monthIndexes = ["01","02","03","04","05","06","07","08","09","10","11","12"]
-  let month;
-  let monthSelectorTemplate = months.map(item => (
-    <option value={item}>{item}</option>
-  ));
-
+  let monthIndexes = ["01","02","03","04","05","06","07","08","09","10","11","12"] // may not need these
   let years = ['2019', '2018', '2017'] //reverse order is conventional UI
-  let year;
-  let yearSelectorTemplate = years.map(item =>(
-    <option value={item}>{item}</option>
-  ))
 
   return (
     <div>
       <label>
         Choose Month:
-        <select value={month}>
+        <select onChange={props.onSelectMonth}>
           <option value=''>All Months</option>
-          {monthSelectorTemplate}
+          {months.map(item => (
+            <option value={item}>{item}</option>
+          ))}
         </select>
       </label>
 
       <label>
         Choose Year:
-        <select value={year}>
+        <select onChange={props.onSelectYear}>
           <option value=''>All Years</option>
-          {yearSelectorTemplate}
+          {years.map(item =>  (
+            <option value={item}>{item}</option>
+          ))}
         </select>
       </label>
     </div>
   )
+
 }
 
+SelectDate.propTypes = {
+  onSelectMonth: PropTypes.func,
+  onSelectYear: PropTypes.func,
+}
 
 function SelectProject (props) {
   const projects = props.projectsList;
@@ -107,7 +105,7 @@ function SelectProject (props) {
           ? <Graphs selectedProject={props.selectedProject}
           countsList={props.countsList} />
           : <p>No data yet</p>}
-        <SelectDate />
+        
       </div>
 
     )
@@ -123,19 +121,16 @@ SelectProject.propTypes = {
 };
 
 
-//should this be a stateless functional component instead?
-//currently not receiving props
-//no, because it needs selectedProject state; that's the point of the component
-//SelectProject and Calculations can be SFCs though
+
 
 class DisplayProjects extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      selectedProject: ''
+      selectedProject: '',
+      selectedMonth: '',
+      selectedYear: ''
     };
-    console.log(this.props)
     this.updateProject = this.updateProject.bind(this);
   }
   updateProject(title) {
@@ -146,17 +141,38 @@ class DisplayProjects extends React.Component {
     });
   }
 
+  updateMonth = e => {
+    console.log(e.target.value)
+    // console.log(month)
+    this.setState({
+      selectedMonth: e.target.value
+    });
+  }
+
+  updateYear = e => {
+    console.log(e.target.value)
+    this.setState({
+      selectedYear: e.target.value
+    });
+  }
 
   render() {
-
+    console.log(this.state.selectedProject)
+    console.log(this.state.selectedMonth)
+    console.log(this.state.selectedYear)
     return (
       <div>
         <SelectProject
           selectedProject={this.state.selectedProject}
           onSelect={this.updateProject} 
           projectsList={this.props.projectsList}
-          countsList={this.props.countsList} />
+          countsList={this.props.countsList} 
+        />
 
+        <SelectDate 
+          onSelectMonth={this.updateMonth}
+          onSelectYear={this.updateYear}
+        />
 
       </div>
     )

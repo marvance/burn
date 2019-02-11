@@ -82,8 +82,7 @@ import axios from 'axios';
       for(var i=0; i<data.length;i++){
         //local variable to track dayofweek
         var dayOfWeek;
-        console.log(new Date(data[i].date))
-        console.log(new Date(data[i].date).getDay())
+
         //wouldn't need below conditional if new Date(data[i].date)
         //aka entire date selector
         //were not off by 1 day (5 hours)
