@@ -35,8 +35,49 @@ Graphs.propTypes = {
   countsList: PropTypes.array.isRequired,
 };
 
-function SelectDate(props) {
+function SelectDate(){
 
+//show all months in year
+
+//show all years since user signed up
+
+//select month in year
+
+//run calcs on that individual month
+
+//if zero, return zero
+  let months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+  let monthIndexes = ["01","02","03","04","05","06","07","08","09","10","11","12"]
+  let month;
+  let monthSelectorTemplate = months.map(item => (
+    <option value={item}>{item}</option>
+  ));
+
+  let years = ['2019', '2018', '2017'] //reverse order is conventional UI
+  let year;
+  let yearSelectorTemplate = years.map(item =>(
+    <option value={item}>{item}</option>
+  ))
+
+  return (
+    <div>
+      <label>
+        Choose Month:
+        <select value={month}>
+          <option value=''>All Months</option>
+          {monthSelectorTemplate}
+        </select>
+      </label>
+
+      <label>
+        Choose Year:
+        <select value={year}>
+          <option value=''>All Years</option>
+          {yearSelectorTemplate}
+        </select>
+      </label>
+    </div>
+  )
 }
 
 
@@ -66,6 +107,7 @@ function SelectProject (props) {
           ? <Graphs selectedProject={props.selectedProject}
           countsList={props.countsList} />
           : <p>No data yet</p>}
+        <SelectDate />
       </div>
 
     )
