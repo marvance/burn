@@ -61,13 +61,10 @@ import axios from 'axios';
 
   }
   export function findMostProductiveDate(countsArray){
-    console.log(countsArray)
-    console.log(countsArray.length)
     //for given time frame, find most productive date
     if (countsArray.length) {
       return countsArray.reduce(function(a,b){
-        console.log(a, ' : ', b)
-        return (parseInt(a.words) < parseInt(b.words)) ? b : a
+        return (parseInt(a.words) > parseInt(b.words)) ? a : b
       })
     } 
     else {
@@ -77,8 +74,7 @@ import axios from 'axios';
   export function findMostProductiveDayOfWeek(data){
     //for given time frame, find most productive day of week
       //storage for counts by day of week
-      console.log(data)
-      console.log(data.length)
+
       var days = [0,0,0,0,0,0,0]
       //names of day of week
       var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
