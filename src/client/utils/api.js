@@ -6,38 +6,38 @@ import axios from 'axios';
     //for a given array (sort by proj/date/etc before calling this function)
     //calc total
 
-    if (countsArray.length) {
+    if (!countsArray.length) {
+      return null
+    } 
+    else {
       return countsArray.map(function(a){
         return parseInt(a.words)
       }).reduce(function(a,b){
         return a+b
       })
-    } 
-    else {
-      return null
     }
   }
   export function sortByProject(whichProject, countsArray){
     //for given project, return counts only for that project
-    if (countsArray.length) {
+    if (!countsArray.length) {
+      return null
+    } 
+    else {   
       return countsArray.filter(function(item){
         return item.project === whichProject
       })
-    } 
-    else {
-      return null
     }
 
   }
 
   function sortByMonthOriginal(dateString, countsArray){
-    if (countsArray.length) {
+    if (!countsArray.length) {
+      return null
+    } 
+    else {
       return countsArray.filter(function(item){
         return item.date.substring(0, 7) === dateString.substring(0, 7)
       })
-    } 
-    else {
-      return null
     }   
   }
   export function sortByMonth(month, countsArray) {
@@ -47,27 +47,27 @@ import axios from 'axios';
       correctedMonth = '0' + correctedMonth
     }
     console.log(correctedMonth)
-    if (countsArray.length) {
-      return countsArray.filter(function(item){
-        return item.date.substring(5, 7) === correctedMonth
-      })
+    if (!countsArray.length) {
+      return null
     } 
     else {
-      return null
+      return countsArray.filter(function(item){
+        return item.date.substring(5, 7) === correctedMonth
+      })   
     }
   }
   export function sortByYear(year, countsArray){
     //for given year, return counts only for that year
 
-    if (countsArray.length) {
+    if (!countsArray.length) {
+      return null
+    } 
+    else {
       return countsArray.filter(function(item){
         // console.log(item.date.substring(0, 4))
         // console.log(year)
         return item.date.substring(0, 4) === year
-      })
-    } 
-    else {
-      return null
+      })      
     }
   }
   function insertZeroesForEmptyDates(){
@@ -78,13 +78,13 @@ import axios from 'axios';
   }
   export function findMostProductiveDate(countsArray){
     //for given time frame, find most productive date
-    if (countsArray.length) {
+    if (!countsArray.length) {
+      return null
+    } 
+    else {
       return countsArray.reduce(function(a,b){
         return (parseInt(a.words) < parseInt(b.words)) ? b : a
       })
-    } 
-    else {
-      return null
     }
   }
   export function findMostProductiveDayOfWeek(data){

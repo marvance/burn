@@ -5,60 +5,99 @@ import {sortByMonth, sortByYear, sortByProject, calculateTotal, calculateAverage
 
 
 function Graphs (props) {
+
     //if no project selected
-  //run calcs on all
+    //run calcs on all
     let total = calculateTotal(props.countsList);
     let prodDay = findMostProductiveDayOfWeek(props.countsList);
     let findProdDate = findMostProductiveDate(props.countsList);
     let prodDate = findProdDate.date;
     console.log(total, prodDay, prodDate)
 
-    //this does not work
-    //changing selected year gives correct all-year data
-    //but selecting project does not update data by project
-    //no matter whether you select year or project first
-    if(props.selectedProject && props.selectedYear) {
-      total = calculateTotal(sortByProject(sortByYear(props.selectedYear, props.countsList), props.countsList))
+    //the following set of conditionals works mostly
+    //but throws errors during some conditions
+    //when you're clicking around and re-selecting some things
+    //need a better way of handling this
+
+    if(props.selectedProject && props.selectedMonth && props.selectedYear) {
+      var byMonth = sortByMonth(props.selectedMonth, props.countsList)
+      console.log(byMonth)
+      var byYear = sortByYear(props.selectedYear, byMonth)
+      console.log(byYear)
+      var byProj = sortByProject(props.selectedProject, byYear)
+      total = calculateTotal(byProj)
+      console.log(total)  
+
+    }
+
+    else if(props.selectedProject && props.selectedYear) {
+      var byYear = sortByYear(props.selectedYear, props.countsList)
+      console.log(byYear)
+      var byProj = sortByProject(props.selectedProject, byYear)
+      console.log(byProj)
+      total = calculateTotal(byProj)
       console.log(total)
+    }
+
+    else if (props.selectedProject && props.selectedMonth) {
+
+      var byMonth = sortByMonth(props.selectedMonth, props.countsList)
+      console.log(byMonth)
+      var byProj = sortByProject(props.selectedProject, byMonth)
+      console.log(byProj)
+      total = calculateTotal(byProj)
+      console.log(total)
+
+    }
+
+    else if (props.selectedMonth && props.selectedYear) {
+      var byMonth = sortByMonth(props.selectedMonth, props.countsList)
+      console.log(byMonth)
+      var byYear = sortByYear(props.selectedYear, byMonth)
+      console.log(byYear)
+      total = calculateTotal(byYear)
+      console.log(total)
+
     }
 
     //if project selected
     //run calcs for given project
-    if (props.selectedProject) {
+    else if (props.selectedProject) {
       console.log(props.selectedProject);
-      total = calculateTotal(sortByProject(props.selectedProject, props.countsList));
-      prodDay = findMostProductiveDayOfWeek(sortByProject(props.selectedProject, props.countsList));
-      findProdDate = findMostProductiveDate(sortByProject(props.selectedProject, props.countsList));
-      prodDate = findProdDate.date;
+      console.log(sortByProject(props.selectedProject, props.countsList));
+      // total = calculateTotal(sortByProject(props.selectedProject, props.countsList));
+      // prodDay = findMostProductiveDayOfWeek(sortByProject(props.selectedProject, props.countsList));
+      // findProdDate = findMostProductiveDate(sortByProject(props.selectedProject, props.countsList));
+      // prodDate = findProdDate.date;
 
     }
 
-    if(props.selectedMonth) {
+    else if(props.selectedMonth) {
       console.log(props.selectedMonth);
       console.log(sortByMonth(props.selectedMonth, props.countsList));
-      total = calculateTotal(sortByMonth(props.selectedMonth, props.countsList));
-      prodDay = findMostProductiveDayOfWeek(sortByMonth(props.selectedMonth, props.countsList));
-      findProdDate = findMostProductiveDate(sortByMonth(props.selectedMonth, props.countsList));
-      prodDate = findProdDate.date;
+      // total = calculateTotal(sortByMonth(props.selectedMonth, props.countsList));
+      // prodDay = findMostProductiveDayOfWeek(sortByMonth(props.selectedMonth, props.countsList));
+      // findProdDate = findMostProductiveDate(sortByMonth(props.selectedMonth, props.countsList));
+      // prodDate = findProdDate.date;
     }
 
-    if(props.selectedYear) {
+    else if(props.selectedYear) {
       console.log(props.selectedYear);
       console.log(sortByYear(props.selectedYear, props.countsList));
       
-      total = calculateTotal(sortByYear(props.selectedYear, props.countsList));
-      prodDay = findMostProductiveDayOfWeek(sortByYear(props.selectedYear, props.countsList));
-      findProdDate = findMostProductiveDate(sortByYear(props.selectedYear, props.countsList));
-      prodDate = findProdDate.date;
+      // total = calculateTotal(sortByYear(props.selectedYear, props.countsList));
+      // prodDay = findMostProductiveDayOfWeek(sortByYear(props.selectedYear, props.countsList));
+      // findProdDate = findMostProductiveDate(sortByYear(props.selectedYear, props.countsList));
+      // prodDate = findProdDate.date;
     }  
 
 
-
+// <p>Most productive date: {prodDate} </p> 
   return (
     <div>
       <p>Total: {total} words</p>
       <p>Most productive day of week: {prodDay}</p>
-      <p>Most productive date: {prodDate} </p>      
+           
     </div>
   )
 
