@@ -18,6 +18,10 @@ function Graphs (props) {
     //but throws errors during some conditions
     //when you're clicking around and re-selecting some things
     //need a better way of handling this
+    //I think it's because, if one item is already selected, but you don't re-select 
+    //that item as you reselect another item, the item that stays the same does not 
+    //get factored in during the conditional
+    //(maybe?? I don't feel like testing it right now; will come back to this) 
 
     if(props.selectedProject && props.selectedMonth && props.selectedYear) {
       var byMonth = sortByMonth(props.selectedMonth, props.countsList)
