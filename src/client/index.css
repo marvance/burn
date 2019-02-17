@@ -72,3 +72,13 @@ a {
   display: flex;
   flex-direction: column;
 }
+
+  .bar {
+    width: 25px;
+    height: 100px;
+    /* Add your code below this line */
+    margin: 2px;
+    /* Add your code above this line */
+    display: inline-block;
+    background-color: blue;
+  }

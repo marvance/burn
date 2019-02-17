@@ -3,7 +3,7 @@ import React from 'react';
 import CountRender from './home/CountRender';
 //need to figure out how to render local images
 // var testImage = require('./../uploads/TestMaryShelley.jpg');
-import {SVGChart} from './stats/Charts';
+import BarChart from './stats/Charts';
 
 
 
@@ -14,7 +14,7 @@ class Home extends React.Component {
       <div className='home-container'>
         <h1>BURN ONE MILLION</h1>
         <CountRender countTotal={this.props.countTotal}/>
-        <SVGChart />
+        <BarChart />
       </div>
     )
   }
