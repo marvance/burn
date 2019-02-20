@@ -25,9 +25,7 @@ function Graphs (props) {
 
     if(props.selectedProject && props.selectedMonth && props.selectedYear) {
       var byMonth = sortByMonth(props.selectedMonth, props.countsList)
-      console.log(byMonth)
       var byYear = sortByYear(props.selectedYear, byMonth)
-      console.log(byYear)
       var byProj = sortByProject(props.selectedProject, byYear)
       total = calculateTotal(byProj)
       console.log(total)  
@@ -36,9 +34,7 @@ function Graphs (props) {
 
     else if(props.selectedProject && props.selectedYear) {
       var byYear = sortByYear(props.selectedYear, props.countsList)
-      console.log(byYear)
       var byProj = sortByProject(props.selectedProject, byYear)
-      console.log(byProj)
       total = calculateTotal(byProj)
       console.log(total)
     }
@@ -46,9 +42,7 @@ function Graphs (props) {
     else if (props.selectedProject && props.selectedMonth) {
 
       var byMonth = sortByMonth(props.selectedMonth, props.countsList)
-      console.log(byMonth)
-      var byProj = sortByProject(props.selectedProject, byMonth)
-      console.log(byProj)
+      var byProj = sortByProject(props.selectedProject, byMonth)  
       total = calculateTotal(byProj)
       console.log(total)
 
@@ -56,9 +50,7 @@ function Graphs (props) {
 
     else if (props.selectedMonth && props.selectedYear) {
       var byMonth = sortByMonth(props.selectedMonth, props.countsList)
-      console.log(byMonth)
       var byYear = sortByYear(props.selectedYear, byMonth)
-      console.log(byYear)
       total = calculateTotal(byYear)
       console.log(total)
 
