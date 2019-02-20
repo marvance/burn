@@ -1,7 +1,7 @@
 import React from 'react';
 import DisplayProjects from './stats/DisplayProjects';
 // import Calculations from './stats/Calculations';
-import BarChart from './stats/Charts';
+import BarChart from './stats/BarChart';
 
 
 class Stats extends React.Component {
