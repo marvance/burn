@@ -1,7 +1,7 @@
 import React from 'react';
 import ProfileRender from './profile/ProfileRender';
 
-
+//delete this
 var USER_PROPS = {
   name: 'Jenn Vance',
   genre: 'nonfiction',

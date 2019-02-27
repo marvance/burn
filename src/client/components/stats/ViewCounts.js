@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 
 
 function ViewCounts(props) {
-
-
     //perhaps need to give each count an id, if want to map over them.
     //otherwise no unique key since there may likely be multiple of same date, proj, and num words
     return (
