@@ -2,6 +2,7 @@ import React from 'react';
 import DisplayProjects from './stats/DisplayProjects';
 // import Calculations from './stats/Calculations';
 import BarChart from './stats/BarChart';
+import PieChart from './stats/PieChart';
 
 
 class Stats extends React.Component {
@@ -80,6 +81,7 @@ class Stats extends React.Component {
           projectsList={this.state.projects}
           countsList={this.state.counts} />
         <BarChart countsList={this.state.counts} />
+        <PieChart countsList={this.state.counts}/>
       </div>
     )
   }
