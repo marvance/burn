@@ -56,12 +56,12 @@ class CountRender extends React.Component {
      
         console.log(res)
         //can prob delete this, since dont use projects/choosefromprojects on this page
-        var projects = res.map(item => (
-          item.project
-        )).filter((value, index, self) => (
-          self.indexOf(value) === index
-        ))
-        console.log("PROJS: ", projects)
+        // var projects = res.map(item => (
+        //   item.project
+        // )).filter((value, index, self) => (
+        //   self.indexOf(value) === index
+        // ))
+        // console.log("PROJS: ", projects)
 
         this.setState(prevState => ({  
           counts: res,
@@ -71,7 +71,7 @@ class CountRender extends React.Component {
             date: '',
             project: ''
           },
-          chooseFromProjects: projects,
+          // chooseFromProjects: projects,
           displayCount: this.addCount(prevState.count.words)
          
         })
